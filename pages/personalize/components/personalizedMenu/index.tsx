@@ -58,7 +58,7 @@ export function PersonalizedMenu(props: PersonalizedMenuProps) {
 
     return (
         <div className='h-screen v-screen flex p-6 overflow-y-scroll'>
-            <div className='m-auto p-14 rounded-2xl bg-transparent bg-white/[.3]'>
+            <div className='m-auto p-14 rounded-2xl bg-white/[.3]'>
                 <div className='font-bold text-2xl pb-14'>Personalize your {pageRole} profile.</div>
                 <form className=''>
                     <div>
