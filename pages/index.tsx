@@ -31,7 +31,7 @@ const Home: NextPage = () => {
     return (
       <>
         <h1 className="mb-8 text-4xl font-bold">
-          Welcome to the NextJS wagmi template!
+          Welcome to LinkedOutAndAbout!
         </h1>
         <Button
           loading={accountLoading}
