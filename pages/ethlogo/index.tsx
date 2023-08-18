@@ -21,7 +21,7 @@ const Home: NextPage = () => {
     if (balanceData) {
       return (
         <>
-        <Canvas>
+        <Canvas >
             <Stage environment="city" intensity={0.6} >
                 <Ethlogo />
             </Stage>
