@@ -1,7 +1,14 @@
 import { useState } from "react";
 import type { NextPage } from "next";
 import { useAccount, useBalance } from "wagmi";
-import { Button, Layout, Loader, WalletOptionsModal } from "../components";
+import { Button, Layout, Loader, WalletOptionsModal, EthLogo } from "../components";
+import dynamic from 'next/dynamic'
+
+const newLocal = '../components/EthLogo';
+const EthLogo = dynamic(() => import(newLocal), {
+  ssr: false,
+  loading: () => <p>loading...</p>
+});
 
 const Home: NextPage = () => {
   const [showWalletOptions, setShowWalletOptions] = useState(false);
@@ -30,6 +37,9 @@ const Home: NextPage = () => {
 
     return (
       <>
+        <div>
+          <EthLogo />
+        </div>
         <h1 className="mb-8 text-4xl font-bold">
           Welcome to LinkedOutAndAbout!
         </h1>
