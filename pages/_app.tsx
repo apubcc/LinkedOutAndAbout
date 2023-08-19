@@ -38,10 +38,12 @@ const connectors = ({ chainId }: { chainId?: number }): Connector[] => {
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AnimatePresence mode="wait" initial={true}>
+
       <Provider autoConnect connectors={connectors}>
+        <AnimatePresence mode="wait" initial={true}>
         <Component {...pageProps} />
+        </AnimatePresence>
       </Provider>
-    </AnimatePresence>
+    
   );
 }

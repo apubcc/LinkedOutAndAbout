@@ -37,12 +37,15 @@ const Header = styled.div`
 const BodyModel = styled.div`
   position: absolute;
   inset: 0;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
 
-  height: 100%;
-  width: 100%;
+  width: calc(100vh * 0.001 + 5);
+  height: calc(100vh * 0.001 + 5);
 
   cursor: pointer;
-  background-color: transparent;
+  background-color: white;
 `;
 
 const Footer = styled.div`

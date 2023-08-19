@@ -19,8 +19,8 @@ const EthLogo:React.FC = () => {
     const handleWindowResize = useCallback(() => {
       const { current: container } = refBody;
       if (container && renderer) {
-        const scW = container.clientWidth;
-        const scH = container.clientHeight;
+        const scW = container.clientWidth * 3;
+        const scH = container.clientHeight * 3;
   
         renderer.setSize(scW, scH);
       }
@@ -45,17 +45,21 @@ const EthLogo:React.FC = () => {
         renderer.outputEncoding = THREE.sRGBEncoding;
         container.appendChild(renderer.domElement);
         setRenderer(renderer);
-  
-        const scale = scH * 0.08 + 4;
-        const camera = new THREE.OrthographicCamera(-scale, scale, scale, -scale / 2, 0.01, 50000);
+
+        const aspect = scW / scH;
+        
+
+        const scale = scH * 0.001 + 5;//change here for scaling, lower number = bigger
+        const camera = new THREE.OrthographicCamera(-scale * aspect, scale * aspect, scale, -scale, 0.01, 50000);
         camera.position.copy(initialCameraPosition);
         camera.lookAt(target);
         setCamera(camera);
-  
+        
         const ambientLight = new THREE.AmbientLight(0xcccccc, 1);
         scene.add(ambientLight);
   
         const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableZoom = false;
         controls.autoRotate = true;
         controls.target = target;
         setControls(controls);
@@ -79,7 +83,7 @@ const EthLogo:React.FC = () => {
             const p = initialCameraPosition;
             const rotSpeed = -easeOutCirc(frame / 120) * Math.PI * 20;
   
-            camera.position.y = 10;
+            camera.position.y = 3;
             camera.position.x = p.x * Math.cos(rotSpeed) + p.z * Math.sin(rotSpeed);
             camera.position.z = p.z * Math.cos(rotSpeed) - p.x * Math.sin(rotSpeed);
             camera.lookAt(target);
@@ -106,17 +110,7 @@ const EthLogo:React.FC = () => {
     }, [renderer, handleWindowResize]);
   
     return (
-      <Container>
-        {/* <Header>
-          <h1>
-            🎃 <span>HAPPY HALLOWEEN 2021</span> 🎃
-          </h1>
-        </Header> */}
         <BodyModel ref={refBody}>{loading && <p>loading...</p>}</BodyModel>
-        {/* <Footer>
-          -- Created by <a href='https://github.com/sonvt-fe'>Saul Vo</a> ❤️ --
-        </Footer> */}
-      </Container>
     );
   };
   

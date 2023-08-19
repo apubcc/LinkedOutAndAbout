@@ -32,9 +32,7 @@ const Home: NextPage = () => {
 
     return (
       <>
-        <div>
         <EthLogo />
-        </div>
         <h1 className="mb-8 text-4xl font-bold">
           Welcome to LinkedOutAndAbout!
         </h1>
