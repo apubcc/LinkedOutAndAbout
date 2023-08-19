@@ -1,14 +1,9 @@
 import { useState } from "react";
 import type { NextPage } from "next";
 import { useAccount, useBalance } from "wagmi";
-import { Button, Layout, Loader, WalletOptionsModal, EthLogo } from "../components";
+import { Button, Layout, Loader, WalletOptionsModal } from "../components";
 import dynamic from 'next/dynamic'
-
-const newLocal = '../components/EthLogo';
-const EthLogo = dynamic(() => import(newLocal), {
-  ssr: false,
-  loading: () => <p>loading...</p>
-});
+import EthLogo from "../components/EthLogo";
 
 const Home: NextPage = () => {
   const [showWalletOptions, setShowWalletOptions] = useState(false);
@@ -22,23 +17,23 @@ const Home: NextPage = () => {
 
   const renderContent = () => {
     if (loading) return <Loader size={8} />;
-    if (balanceData) {
-      return (
-        <>
-          <h1 className="mb-8 text-4xl font-bold">My Wallet</h1>
-          <div className="inline-flex place-items-center">
-            <h6 className="ml-2 text-2xl">{`Ξ ${Number(
-              balanceData?.formatted
-            ).toFixed(4)} ${balanceData?.symbol}`}</h6>
-          </div>
-        </>
-      );
-    }
+    // if (balanceData) {
+    //   return (
+    //     <>
+    //       <h1 className="mb-8 text-4xl font-bold">My Wallet</h1>
+    //       <div className="inline-flex place-items-center">
+    //         <h6 className="ml-2 text-2xl">{`Ξ ${Number(
+    //           balanceData?.formatted
+    //         ).toFixed(4)} ${balanceData?.symbol}`}</h6>
+    //       </div>
+    //     </>
+    //   );
+    // }
 
     return (
       <>
         <div>
-          <EthLogo />
+        <EthLogo />
         </div>
         <h1 className="mb-8 text-4xl font-bold">
           Welcome to LinkedOutAndAbout!
@@ -55,15 +50,9 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <WalletOptionsModal
-        open={showWalletOptions}
-        setOpen={setShowWalletOptions}
-      />
+      <WalletOptionsModal open={showWalletOptions} setOpen={setShowWalletOptions} />
 
-      <Layout
-        showWalletOptions={showWalletOptions}
-        setShowWalletOptions={setShowWalletOptions}
-      >
+      <Layout showWalletOptions={showWalletOptions} setShowWalletOptions={setShowWalletOptions}>
         <div className="grid h-screen place-items-center">
           <div className="grid place-items-center">{renderContent()}</div>
         </div>

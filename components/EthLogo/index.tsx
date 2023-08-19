@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { loadGLTFModel } from '../../lib/model';
+import { loadGLTFModel } from './model';
 import { BodyModel, Container, Footer, Header } from './styles';
 
 const EthLogo:React.FC = () => {
@@ -107,15 +107,15 @@ const EthLogo:React.FC = () => {
   
     return (
       <Container>
-        <Header>
+        {/* <Header>
           <h1>
             🎃 <span>HAPPY HALLOWEEN 2021</span> 🎃
           </h1>
-        </Header>
+        </Header> */}
         <BodyModel ref={refBody}>{loading && <p>loading...</p>}</BodyModel>
-        <Footer>
+        {/* <Footer>
           -- Created by <a href='https://github.com/sonvt-fe'>Saul Vo</a> ❤️ --
-        </Footer>
+        </Footer> */}
       </Container>
     );
   };
