@@ -39,7 +39,7 @@ const Home: NextPage = () => {
           loading={accountLoading}
           onClick={() => setShowWalletOptions(true)}
         >
-          Connect to Wallet
+          Connect Wallet
         </Button>
       </>
     );
