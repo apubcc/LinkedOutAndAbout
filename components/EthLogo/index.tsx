@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { loadGLTFModel } from './model';
-import { BodyModel, Container, Footer, Header } from './styles';
+import { BodyModel, Container } from './styles';
 
 const EthLogo:React.FC = () => {
     const refBody = useRef<HTMLDivElement>(null);
@@ -48,8 +48,7 @@ const EthLogo:React.FC = () => {
 
         const aspect = scW / scH;
         
-
-        const scale = scH * 0.001 + 5;//change here for scaling, lower number = bigger
+        const scale = scH * 0.001 + 0.1;//change here for scaling, lower number = bigger
         const camera = new THREE.OrthographicCamera(-scale * aspect, scale * aspect, scale, -scale, 0.01, 50000);
         camera.position.copy(initialCameraPosition);
         camera.lookAt(target);
@@ -110,7 +109,10 @@ const EthLogo:React.FC = () => {
     }, [renderer, handleWindowResize]);
   
     return (
+      //show in page/index.tsx
+      <Container>
         <BodyModel ref={refBody}>{loading && <p>loading...</p>}</BodyModel>
+      </Container>
     );
   };
   

@@ -40,9 +40,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
 
       <Provider autoConnect connectors={connectors}>
-        <AnimatePresence mode="wait" initial={true}>
+        {/* <AnimatePresence mode="wait" initial={true}> */}
         <Component {...pageProps} />
-        </AnimatePresence>
+        {/* </AnimatePresence> */}
       </Provider>
     
   );
