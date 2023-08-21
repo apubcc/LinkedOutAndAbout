@@ -5,69 +5,78 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Post {
-    // Logging the event
-    event TweetCreated(uint256 postId, string postContent, uint postDate, address postCreater, string postSector);
 
-    // strcture of the tweet
-    struct Tweet {
+    event PostCreated(uint256 postId, string postContent, uint postDate, address postCreator, string postSector);
+    event PostAttested(uint256 postId, uint256 postAttestCount, address postAttester);
+
+    // strcture of the post
+    struct Post {
         uint256 postId;
         string postContent;
-        uint256 postAttest;
+        uint256 postAttestCount;
         uint256 postDate;
-        address postCreater;
+        address postCreator;
         string postSector;
     }
 
-    event TweetUpdate(string text, uint postAttest);
-
-    // strcture of the tweetUpdate    
-    struct TweetUpdate{
-        string postContent;
-        uint256 postAttest;
-    }
 
     using Counters for Counters.Counter;
-    Counters.Counter private _tweetIds;
+    Counters.Counter private _postIds;
 
-    // mapping - id to Tweets
-    /*
-            1 -> 1, Hello Tweeps!, photo or gif or no media, user
-    */
-    mapping(uint256 => Tweet) private idToTweets;
 
-    //Mapping address to tweetIds made
-    mapping(address => uint256[]) private userToTweetIds;
+    mapping(uint256 => Post) private idToPosts;
+    mapping(address => uint256[]) private userToPostIds;
 
-    // 0x090...998 => [1,2,3,4,5,6,7,8,9,10]
-
-    // create tweet
-    function createTweet(
-        string calldata postContent,
-        string calldata postDate,
-        string calldata postSector
+    // create post
+    function createPost(
+        string calldata _postContent,
+        string calldata _postDate,
+        string calldata _postSector
     ) public {
-        require(bytes(postContent).length > 0, "No Tweet!");
-
-        postContent += "";
+        require(bytes(_postContent).length > 0, "No Tweet!");
+        require(bytes(_postDate).length > 0, "No Date!");
+        require(bytes(_postSector).length > 0, "No Sector!");
 
         //increment by 1
-        _tweetIds.increment();
+        _postIds.increment();
         // current id
-        uint256 postId = _tweetIds.current();
-        Tweet storage tweet = idToTweets[postId];
-        tweet.id = postId;
-        tweet.content = postContent;
-        tweet.date = postDate;
-        tweet.user = msg.sender;
-        tweet.sector = postSector;
-        //add address to tweetIds
-        userToTweetIds[msg.sender].push(postId);
+        uint256 postId = _postIds.current();
+        Post storage post = idToPosts[postId];
+        post.postId = postId;
+        post.postContent = _postContent;
+        post.postDate = _postDate;
+        post.postCreator = msg.sender;
+        post.postSector = _postSector;
+        //add address to postIds
+        userToPostIds[msg.sender].push(postId);
 
         emit TweetCreated(postId, postContent, postDate, msg.sender, postSector);
     }
 
     //get tweet
-    function getTweet(uint256 postId) public view returns (Tweet memory) {
-        return idToTweets[_tweetId];
+    function getPost(uint256 postId) public view returns (Post memory) {
+        return idToPosts[postId];
     }
+
+    //get all tweets
+    function getAllPosts() public view returns (Post[] memory) {
+        Post[] memory posts = new Post[](_postIds.current());
+        for (uint256 i = 0; i < _postIds.current(); i++) {
+            posts[i] = idToPosts[i + 1];
+        }
+        return posts;
+    }
+
+    //get all tweets by user
+    function getAllPostsByUser(address user) public view returns (Post[] memory) {
+        uint256[] memory postIds = userToPostIds[user];
+        Post[] memory posts = new Post[](postIds.length);
+        for (uint256 i = 0; i < postIds.length; i++) {
+            posts[i] = idToPosts[postIds[i]];
+        }
+        return posts;
+    }
+
+    //TODO: add attestation
+
 }
