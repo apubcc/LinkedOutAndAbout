@@ -26,7 +26,7 @@ a {
   --secondary-glow: conic-gradient(
     from 10deg at 50% 50%,
     #ff6600 0deg,
-    #b28f77 55deg,
+    #ff7418 55deg,
     #1cddff 120deg,
     #c17eff 160deg,
     transparent 360deg
@@ -36,7 +36,7 @@ a {
     #4ff54f 0deg,
     #ff810c 160deg,
     #7ed2da 120deg,
-    #8bdce0 55deg,
+    #f193e5 55deg,
     transparent 360deg
   );
 }
