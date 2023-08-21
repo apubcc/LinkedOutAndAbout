@@ -3,7 +3,7 @@ pragma solidity >=0.8.0;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-import {IMessageRecipient} from "../interfaces/IMessageRecipient.sol";
+import {IMessageRecipient} from "./interfaces/IMessageRecipient.sol";
 import {IInterchainSecurityModule, ISpecifiesInterchainSecurityModule} from "../interfaces/IInterchainSecurityModule.sol";
 
 contract TestRecipient is
