@@ -2,6 +2,6 @@
   "files.associations": {
     "*.rsh": "javascript"
   },
-
-  "javascript.suggest.completeFunctionCalls": true
+  "javascript.suggest.completeFunctionCalls": true,
+  "discord.enabled": true
 }

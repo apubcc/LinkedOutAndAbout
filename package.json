@@ -23,6 +23,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
+    "@types/eth-url-parser": "^1.0.0",
     "@types/node": "17.0.8",
     "@types/react": "17.0.38",
     "autoprefixer": "^10.4.2",
