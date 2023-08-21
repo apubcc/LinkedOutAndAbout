@@ -6,6 +6,12 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import React, { useRef } from 'react'
 import { useGLTF, useAnimations, PerspectiveCamera } from '@react-three/drei'
 import { OrbitControls } from '@react-three/drei'
+import { SSX } from '@spruceid/ssx';
+
+const signInButtonHandler = async () => {
+  const ssx = new SSX();
+  const session = await ssx.signIn();
+};
 
 function EthLogo(props) {
   const group = React.useRef();
