@@ -62,6 +62,8 @@ const attest = async (action: any, recipient: string) => {
   console.log("New attestation UID:", newAttestationUID);
 };
 
+//Function to check if you need to confirm that you met a person IRL
+
 const Home: NextPage = () => {
   return (
     <>
