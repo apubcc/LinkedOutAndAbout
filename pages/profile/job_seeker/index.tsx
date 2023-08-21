@@ -59,10 +59,12 @@ const attest = async (action: any, recipient: string) => {
 
   const newAttestationUID = await tx.wait();
 
+  //if operation was metIRL or isTrue, explore using spruce to store the attestation UID in the recipient's spruce profile along with the operation
+
   console.log("New attestation UID:", newAttestationUID);
 };
 
-//Function to check if you need to confirm that you met a person IRL
+//Function to fetch attesttion data from user's spruce profile, and see if they have met a person IRL or verified that they met a person IRL
 
 const Home: NextPage = () => {
   return (
