@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { NextPage } from "next";
+//import type { NextPage } from "next";
 import { useAccount, useBalance, useEnsAvatar } from "wagmi";
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import { useEnsResolver } from "wagmi";
@@ -7,21 +7,17 @@ import { fetchEnsName } from '@wagmi/core'
 import React from 'react'
 
 function App() {
-//ts-ignore
-  const { data, isError, isLoading } = useEnsResolver({
-    name: 'awkweb.eth',
-  })
- 
-  if (isLoading) return <div>Fetching resolver…</div>
-  if (isError) return <div>Error fetching resolver</div>
-  return <div>Resolver: {JSON.stringify(data)}</div>
-}
+    //ts-ignore
+      const { data, isError, isLoading } = useEnsResolver({
+        name: 'awkweb.eth',
+      })
+     
+      if (isLoading) return <div>Fetching resolver…</div>
+      if (isError) return <div>Error fetching resolver</div>
+      return <div>Resolver: {JSON.stringify(data)}</div>
+    }
 
-const ensName = await fetchEnsName({
-  address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
-})
-
-const Home: NextPage = () => {
+const Home = () => {
   const [showWalletOptions, setShowWalletOptions] = useState(false);
   const [{ data: accountData, loading: accountLoading }] = useAccount();
   const [{ data: balanceData, loading: balanceLoading }] = useBalance({
