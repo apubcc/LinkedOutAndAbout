@@ -4,6 +4,7 @@ import { useAccount, useBalance, useEnsAvatar } from "wagmi";
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import { useEnsResolver } from "wagmi";
 import { fetchEnsName } from '@wagmi/core'
+import React from 'react'
 
 function App() {
 //ts-ignore
