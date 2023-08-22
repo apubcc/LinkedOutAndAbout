@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unknown-property */
 import { Suspense, useEffect, useState } from "react";
-import { useAccount, useBalance } from "wagmi";
 import { Button, Layout, Loader, WalletOptionsModal } from "../components";
 import { Canvas, useFrame } from "@react-three/fiber";
 import React, { useRef } from 'react'
@@ -115,18 +114,18 @@ const Home = () => {
 
   const renderContent = () => {
     if (loading) return <Loader size={8} />;
-    if (balanceData) {
-      return (
-        <>
-          <h1 className="mb-8 text-4xl font-bold">My Wallet</h1>
-          <div className="inline-flex place-items-center">
-            <h6 className="ml-2 text-2xl">{`Ξ ${Number(
-              balanceData?.formatted
-            ).toFixed(4)} ${balanceData?.symbol}`}</h6>
-          </div>
-        </>
-      );
-    }
+    // if (balanceData) {
+    //   return (
+    //     <>
+    //       <h1 className="mb-8 text-4xl font-bold">My Wallet</h1>
+    //       <div className="inline-flex place-items-center">
+    //         <h6 className="ml-2 text-2xl">{`Ξ ${Number(
+    //           balanceData?.formatted
+    //         ).toFixed(4)} ${balanceData?.symbol}`}</h6>
+    //       </div>
+    //     </>
+    //   );
+    // }
 
     return (
       <>
@@ -148,9 +147,9 @@ const Home = () => {
         </h1>
         <Button
           loading={accountLoading}
-          onClick={() => setShowWalletOptions(true)}
+          onClick={() => signInButtonHandler(true)}
         >
-          Connect Wallet
+          Sign-in With Ethereum
         </Button>
       </>
     );
