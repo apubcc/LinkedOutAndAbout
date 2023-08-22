@@ -6,6 +6,8 @@ export const contractAddresses = {
     // Arbitrum Goerli
     EAS: "0xaEF4103A04090071165F78D45D83A0C0782c2B2a",
     SchemaRegistry: "0x55D26f9ae0203EF95494AE4C170eD35f4Cf77797",
+    Post: "0x1cAb1AE773A9a86db6D280560BD32A8142658443",
+    SectorResolver: "0xb378E7F5a3149770A46d9ee9fC9237D5F12f2C0E",
   },
 };
 
