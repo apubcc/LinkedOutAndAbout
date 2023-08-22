@@ -4,7 +4,6 @@ import { Provider, chain, defaultChains } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { WalletLinkConnector } from "wagmi/connectors/walletLink";
-import { AnimatePresence } from 'framer-motion';
 
 const infuraId = process.env.NEXT_PUBLIC_INFURA_ID;
 
@@ -40,9 +39,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
 
       <Provider autoConnect connectors={connectors}>
-        {/* <AnimatePresence mode="wait" initial={true}> */}
         <Component {...pageProps} />
-        {/* </AnimatePresence> */}
       </Provider>
     
   );
