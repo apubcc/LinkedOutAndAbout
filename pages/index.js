@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { Suspense, useEffect, useState } from "react";
+import { useAccount, useBalance } from "wagmi";
 import { Button, Layout, Loader, WalletOptionsModal } from "../components";
 import { Canvas, useFrame } from "@react-three/fiber";
 import React, { useRef } from 'react'
