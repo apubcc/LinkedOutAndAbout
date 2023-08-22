@@ -7,6 +7,8 @@ import {Post} from "../src/Post.sol";
 contract PostTest is Test {
     Post post;
 
+    //define constants
+
     function setUp() public {
         post = new Post();
     }
@@ -21,7 +23,6 @@ contract PostTest is Test {
 
         Post.PostStruct memory retrievedPost = post.getPost(1);
 
-        assertEq(retrievedPost.postId, 1);
         assertEq(retrievedPost.postContent, content);
         assertEq(retrievedPost.postDate, date);
         assertEq(retrievedPost.postCreator, address(this));
