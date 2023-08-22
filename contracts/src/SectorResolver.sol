@@ -11,21 +11,38 @@ import {Post} from "./Post.sol";
 /**
  * @title A sample schema resolver that checks whether the attestation is from a specific attester.
  */
-contract AttesterResolver is SchemaResolver {
+contract SectorResolver is SchemaResolver {
     Post public postContract;
 
-    //connect the above contract to this contract
-
-    constructor(IEAS eas, address postContractAddr) SchemaResolver(eas) {
-        postContract = Post(postContractAddr);
+    constructor(IEAS _eas, address _postContractAddr) SchemaResolver(_eas) {
+        postContract = Post(_postContractAddr);
     }
 
     function onAttest(
         Attestation calldata attestation,
         uint256 /*value*/
-    ) internal view override returns (bool) {
-        //replace with a way to check that the source sector is the same as the target sector contained in the NFT contract
-        return true;
+    ) internal override returns (bool) {
+        // we require that there are 2 data fields in the attestation
+        require(attestation.data.length == 2, "Invalid attestation data");
+
+        (uint256 postId, string memory attesterSector) = abi.decode(
+            attestation.data,
+            (uint256, string)
+        );
+
+        // get post sector from post contract
+        string memory retrievedPostSector = postContract.getPostSector(postId);
+
+        // compare post sector with attester sector. if true, call updateAttestCount function in post contract by passing postId and also return true
+        if (
+            keccak256(abi.encodePacked(retrievedPostSector)) ==
+            keccak256(abi.encodePacked(attesterSector))
+        ) {
+            postContract.updateAttestCount(postId);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function onRevoke(
