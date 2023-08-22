@@ -2,9 +2,11 @@ import { useState } from "react";
 //import type { NextPage } from "next";
 import { useAccount, useBalance, useEnsAvatar } from "wagmi";
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
+import  FrostedCard from "../../../components/FrostedCard";
 import { useEnsResolver } from "wagmi";
 import { fetchEnsName } from '@wagmi/core'
 import React from 'react'
+import ProfileFrame from "../../../components/ProfileFrame";
 
 function App() {
     //ts-ignore
@@ -32,11 +34,15 @@ const Home = () => {
     if (balanceData) {
       return (
         <>
-          <h1 className="mb-8 text-4xl font-bold">My Wallet</h1>
+          <h1 className="mb-8 text-4xl font-bold">Profile Info:</h1>
           <div className="inline-flex place-items-center">
-            <h6 className="ml-2 text-2xl">{`Ξ ${Number(
-              balanceData?.formatted
-            ).toFixed(4)} ${balanceData?.symbol}`}</h6>
+            <FrostedCard className="w-auto h-auto place-items-center">
+              <ProfileFrame></ProfileFrame>
+              <h1 className="mb-8 text-3x1 font-bold">ENS NAME</h1>
+              <p>Details:</p>
+              <p>Sector: Tech</p>
+              <p>Skills: HTML, CSS, TSX</p>
+            </FrostedCard> 
           </div>
         </>
       );
