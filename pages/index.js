@@ -11,6 +11,7 @@ import { SSX } from '@spruceid/ssx';
 const signInButtonHandler = async () => {
   const ssx = new SSX();
   const session = await ssx.signIn();
+  console.log(session);
 };
 
 function EthLogo(props) {
