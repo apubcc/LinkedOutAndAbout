@@ -147,10 +147,7 @@ const Home = () => {
         <h1 className="mb-8 text-4xl font-bold">
           Welcome to LinkedOutAndAbout!
         </h1>
-        <Button
-          loading={accountLoading}
-          onClick={() => signInButtonHandler(true)}
-        >
+        <Button loading={accountLoading} onClick={() => signInButtonHandler(true)}>
           Sign-in With Ethereum
         </Button>
       </>
