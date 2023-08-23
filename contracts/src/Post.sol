@@ -23,11 +23,12 @@ contract Post {
         address postCreator,
         string postSector
     );
-    event PostAttested(
+    event PostAttestCountUpdated(
         uint256 postId,
         uint256 postAttestCount,
         address postAttester
     );
+    event SectorResolverUpdated(address newSectorResolverAddress);
 
     // Post structure
     struct PostStruct {
@@ -49,6 +50,7 @@ contract Post {
         address _sectorResolverAddress
     ) external {
         sectorResolverAddress = _sectorResolverAddress;
+        emit SectorResolverUpdated(_sectorResolverAddress);
     }
 
     // Create post
@@ -82,6 +84,7 @@ contract Post {
 
     // Get post
     function getPost(uint256 postId) external view returns (PostStruct memory) {
+        require(postId <= _postIds.current(), "Post does not exist");
         return idToPosts[postId];
     }
 
@@ -89,6 +92,7 @@ contract Post {
     function getPostSector(
         uint256 postId
     ) external view returns (string memory) {
+        require(postId <= _postIds.current(), "Post does not exist");
         return idToPosts[postId].postSector;
     }
 
@@ -135,13 +139,24 @@ contract Post {
         return posts;
     }
 
+    // Get total number of posts by a user
+    function getTotalPostsByUser(address user) external view returns (uint256) {
+        return userToPostIds[user].length;
+    }
+
     // Function to update attestation count in post
     function updateAttestCount(uint256 postId) external onlySectorResolver {
+        require(postId <= _postIds.current(), "Post does not exist");
         idToPosts[postId].postAttestCount++;
-        emit PostAttested(
+        emit PostAttestCountUpdated(
             postId,
             idToPosts[postId].postAttestCount,
-            msg.sender
+            tx.origin
         );
+    }
+
+    // Get the last used post ID
+    function getLastPostId() external view returns (uint256) {
+        return _postIds.current();
     }
 }
