@@ -1,9 +1,23 @@
 import { useState } from "react";
-import type { NextPage } from "next";
-import { useAccount, useBalance } from "wagmi";
+//import type { NextPage } from "next";
+import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from "wagmi";
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
+import  FrostedCard from "../../../components/FrostedCard";
+import ProfileFrame from "../../../components/ProfileFrame";
+import React from 'react'
 
-const Home: NextPage = () => {
+function App() {
+    //ts-ignore
+      const { data, isError, isLoading } = useEnsResolver({
+        name: 'awkweb.eth',
+      })
+     
+      if (isLoading) return <div>Fetching resolver…</div>
+      if (isError) return <div>Error fetching resolver</div>
+      return <div>Resolver: {JSON.stringify(data)}</div>
+    }
+
+const Home = () => {
   const [showWalletOptions, setShowWalletOptions] = useState(false);
   const [{ data: accountData, loading: accountLoading }] = useAccount();
   const [{ data: balanceData, loading: balanceLoading }] = useBalance({
@@ -18,11 +32,14 @@ const Home: NextPage = () => {
     if (balanceData) {
       return (
         <>
-          <h1 className="mb-8 text-4xl font-bold">My Wallet</h1>
+          <h1 className="mb-8 text-4xl font-bold">Profile Info:</h1>
           <div className="inline-flex place-items-center">
-            <h6 className="ml-2 text-2xl">{`Ξ ${Number(
-              balanceData?.formatted
-            ).toFixed(4)} ${balanceData?.symbol}`}</h6>
+            <FrostedCard className="w-auto h-auto place-items-center">
+              <ProfileFrame></ProfileFrame>
+              <h1 className="mb-8 text-3x1 font-bold">ENS NAME</h1>
+              <p>Sector: Tech</p>
+              <p>Skills: HTML, CSS, TSX</p>
+            </FrostedCard> 
           </div>
         </>
       );
@@ -30,8 +47,8 @@ const Home: NextPage = () => {
 
     return (
       <>
-        <h1 className="mb-8 text-4x1 font-bold">
-          Employer Profile Page
+        <h1 className="mb-8 text-4xl font-bold">
+          Job Seeker Profile
         </h1>
         <Button
           loading={accountLoading}

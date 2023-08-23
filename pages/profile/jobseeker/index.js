@@ -1,12 +1,12 @@
 import { useState } from "react";
 //import type { NextPage } from "next";
-import { useAccount, useBalance, useEnsAvatar } from "wagmi";
+import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from "wagmi";
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
-import { useEnsResolver } from "wagmi";
-import { fetchEnsName } from '@wagmi/core'
-import React from 'react'
 import ProfileFrame from "../../../components/ProfileFrame";
+import UserID from "../../../components/UserID";
+import BackArrowButton from './BackArrowButton';
+import React from 'react'
 
 function App() {
     //ts-ignore
@@ -38,6 +38,7 @@ const Home = () => {
           <div className="inline-flex place-items-center">
             <FrostedCard className="w-auto h-auto place-items-center">
               <ProfileFrame></ProfileFrame>
+              <UserID></UserID>
               <h1 className="mb-8 text-3x1 font-bold">ENS NAME</h1>
               <p>Details:</p>
               <p>Sector: Tech</p>
@@ -62,7 +63,22 @@ const Home = () => {
       </>
     );
   };
-
+  
+  function App() {
+    const handleBackClick = () => {
+      // Handle going back or any other action
+      console.log('Back button clicked');
+    };
+  
+    return (
+      <div className="relative h-screen flex justify-center items-center">
+        <h1 className="text-3xl font-bold mb-4">Page Title</h1>
+        <BackArrowButton onClick={handleBackClick} />
+        {/* Other content */}
+      </div>
+    );
+  }
+  
   return (
     <>
       <WalletOptionsModal
