@@ -4,7 +4,7 @@ import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
-import BackArrowButton from "../../../components/BackArrow";
+import BackArrow from "../../../components/BackArrow";
 import UserID from "../../../components/UserID";
 import React from 'react'
 
@@ -62,22 +62,6 @@ const Home = () => {
       </>
     );
   };
-
-  //back arrow button
-  function App() {
-    const handleBackClick = () => {
-      // Handle going back or any other action
-      console.log('Back button clicked');
-    };
-  
-    return (
-      <div className="relative h-screen flex justify-center items-center">
-        <h1 className="text-3xl font-bold mb-4">Page Title</h1>
-        <BackArrowButton onClick={handleBackClick} />
-        {/* Other content */}
-      </div>
-    );
-  }
   
   return (
     <>

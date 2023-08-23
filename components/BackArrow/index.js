@@ -1,15 +1,8 @@
 import React from 'react';
 
-interface BackArrowProps {
-  onClick: () => void;
-}
-
-const BackArrow: React.FC<BackArrowProps> = ({ onClick }) => {
+const BackArrow = ({ onClick }) => {
   return (
-    <button
-      className="absolute top-4 left-4 p-2 rounded-md bg-gray-200 hover:bg-gray-300 transition duration-300"
-      onClick={onClick}
-    >
+    <button className="absolute top-4 left-4" onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6"
@@ -20,7 +13,7 @@ const BackArrow: React.FC<BackArrowProps> = ({ onClick }) => {
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+          strokeWidth="2"
           d="M15 19l-7-7 7-7"
         />
       </svg>
