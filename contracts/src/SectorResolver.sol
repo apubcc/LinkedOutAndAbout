@@ -22,9 +22,6 @@ contract SectorResolver is SchemaResolver {
         Attestation calldata attestation,
         uint256 /*value*/
     ) internal override returns (bool) {
-        // we require that there are 2 data fields in the attestation
-        require(attestation.data.length == 2, "Invalid attestation data");
-
         (uint256 postId, string memory attesterSector) = abi.decode(
             attestation.data,
             (uint256, string)
