@@ -4,8 +4,8 @@ import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
+import BackArrowButton from "../../../components/BackArrow";
 import UserID from "../../../components/UserID";
-import BackArrowButton from './BackArrowButton';
 import React from 'react'
 
 function App() {
@@ -38,7 +38,6 @@ const Home = () => {
           <div className="inline-flex place-items-center">
             <FrostedCard className="w-auto h-auto place-items-center">
               <ProfileFrame></ProfileFrame>
-              <UserID></UserID>
               <h1 className="mb-8 text-3x1 font-bold">ENS NAME</h1>
               <p>Details:</p>
               <p>Sector: Tech</p>
@@ -63,7 +62,8 @@ const Home = () => {
       </>
     );
   };
-  
+
+  //back arrow button
   function App() {
     const handleBackClick = () => {
       // Handle going back or any other action

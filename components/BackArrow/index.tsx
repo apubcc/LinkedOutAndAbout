@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface BackArrowButtonProps {
+interface BackArrowProps {
   onClick: () => void;
 }
 
-const BackArrowButton: React.FC<BackArrowButtonProps> = ({ onClick }) => {
+const BackArrow: React.FC<BackArrowProps> = ({ onClick }) => {
   return (
     <button
       className="absolute top-4 left-4 p-2 rounded-md bg-gray-200 hover:bg-gray-300 transition duration-300"
@@ -28,4 +28,4 @@ const BackArrowButton: React.FC<BackArrowButtonProps> = ({ onClick }) => {
   );
 };
 
-export default BackArrowButton;
+export default BackArrow;
