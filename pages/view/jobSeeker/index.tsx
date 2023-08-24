@@ -17,7 +17,7 @@ const attestPost = async (
   const chainId = 421613;
 
   //access EAS contract address in constants file based on chainId
-  const EASContractAddress = contractAddresses[chainId].EAS;
+  const EASContractAddress = contractAddresses[chainId].EAS.contractAddress;
 
   // Initialize the sdk with the address of the EAS Schema contract address
   const eas = new EAS(EASContractAddress);
@@ -83,9 +83,9 @@ const Home: NextPage = () => {
             <button
               onClick={() =>
                 attestPost(
-                  1,
+                  2,
                   "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-                  "Blockchain"
+                  "Human Resource"
                 )
               }
               className="bg-blue-500 p-2 rounded-full hover:bg-blue-600 focus:outline-none"
