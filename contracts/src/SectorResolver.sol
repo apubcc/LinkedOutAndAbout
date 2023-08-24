@@ -2,32 +2,50 @@
 
 pragma solidity 0.8.19;
 
-import { SchemaResolver } from "./SchemaResolver.sol";
+import {SchemaResolver} from "./SchemaResolver.sol";
 
-import { IEAS, Attestation } from "./IEAS.sol";
+import {IEAS, Attestation} from "./interfaces/IEAS.sol";
 
-import {nftPost} from  './nftPost.sol';
+import {Post} from "./Post.sol";
 
 /**
  * @title A sample schema resolver that checks whether the attestation is from a specific attester.
  */
-contract AttesterResolver is SchemaResolver {
+contract SectorResolver is SchemaResolver {
+    Post public postContract;
 
-    nftPost public nftPostContract;
-
-    //connect the above contract to this contract
-
-
-    constructor(IEAS eas, address nftPostContractAddr) SchemaResolver(eas) {
-        nftPostContract = nftPost(nftPostContractAddr);
+    constructor(IEAS _eas, address _postContractAddr) SchemaResolver(_eas) {
+        postContract = Post(_postContractAddr);
     }
 
-    function onAttest(Attestation calldata attestation, uint256 /*value*/, string postSector, uint256 postId) internal view override returns (bool) {
-        //replace with a way to check that the source sector is the same as the target sector contained in the NFT contract
-        return nftPostContract.getTweet(postId)['postSector'] == postSector;
+    function onAttest(
+        Attestation calldata attestation,
+        uint256 /*value*/
+    ) internal override returns (bool) {
+        (uint256 postId, string memory attesterSector) = abi.decode(
+            attestation.data,
+            (uint256, string)
+        );
+
+        // get post sector from post contract
+        string memory retrievedPostSector = postContract.getPostSector(postId);
+
+        // compare post sector with attester sector. if true, call updateAttestCount function in post contract by passing postId and also return true
+        if (
+            keccak256(abi.encodePacked(retrievedPostSector)) ==
+            keccak256(abi.encodePacked(attesterSector))
+        ) {
+            postContract.updateAttestCount(postId);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    function onRevoke(Attestation calldata /*attestation*/, uint256 /*value*/) internal pure override returns (bool) {
+    function onRevoke(
+        Attestation calldata /*attestation*/,
+        uint256 /*value*/
+    ) internal pure override returns (bool) {
         return true;
     }
 }

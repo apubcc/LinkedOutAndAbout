@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.4;
 
-import { IEAS, Attestation } from "./IEAS.sol";
-import { InvalidEAS, uncheckedInc } from "./Common.sol";
-import { Semver } from "./Semver.sol";
+import {IEAS, Attestation} from "./interfaces/IEAS.sol";
+import {InvalidEAS, uncheckedInc} from "./Common.sol";
+import {Semver} from "./Semver.sol";
 
-import { ISchemaResolver } from "./ISchemaResolver.sol";
+import {ISchemaResolver} from "./interfaces/ISchemaResolver.sol";
 
 /// @title SchemaResolver
 /// @notice A base resolver contract
@@ -48,7 +48,9 @@ abstract contract SchemaResolver is ISchemaResolver, Semver {
     }
 
     /// @inheritdoc ISchemaResolver
-    function attest(Attestation calldata attestation) external payable onlyEAS returns (bool) {
+    function attest(
+        Attestation calldata attestation
+    ) external payable onlyEAS returns (bool) {
         return onAttest(attestation, msg.value);
     }
 
@@ -87,7 +89,9 @@ abstract contract SchemaResolver is ISchemaResolver, Semver {
     }
 
     /// @inheritdoc ISchemaResolver
-    function revoke(Attestation calldata attestation) external payable onlyEAS returns (bool) {
+    function revoke(
+        Attestation calldata attestation
+    ) external payable onlyEAS returns (bool) {
         return onRevoke(attestation, msg.value);
     }
 
@@ -132,7 +136,10 @@ abstract contract SchemaResolver is ISchemaResolver, Semver {
     ///     usually hold that msg.value != value, since msg.value aggregated the sent ETH amounts for all the
     ///     attestations in the batch.
     /// @return Whether the attestation is valid.
-    function onAttest(Attestation calldata attestation, uint256 value) internal virtual returns (bool);
+    function onAttest(
+        Attestation calldata attestation,
+        uint256 value
+    ) internal virtual returns (bool);
 
     /// @notice Processes an attestation revocation and verifies if it can be revoked.
     /// @param attestation The existing attestation to be revoked.
@@ -141,7 +148,10 @@ abstract contract SchemaResolver is ISchemaResolver, Semver {
     ///     usually hold that msg.value != value, since msg.value aggregated the sent ETH amounts for all the
     ///     attestations in the batch.
     /// @return Whether the attestation can be revoked.
-    function onRevoke(Attestation calldata attestation, uint256 value) internal virtual returns (bool);
+    function onRevoke(
+        Attestation calldata attestation,
+        uint256 value
+    ) internal virtual returns (bool);
 
     /// @notice Ensures that only the EAS contract can make this call.
     function _onlyEAS() private view {
