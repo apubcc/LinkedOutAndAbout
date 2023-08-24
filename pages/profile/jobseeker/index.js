@@ -4,13 +4,13 @@ import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
-import BackArrow from "../../../components/BackArrow";
+import BackArrow from "../../../components/BackArrow"
 import UserID from "../../../components/UserID";
 import React from 'react'
 
-function App() {
+function ensName() {
     //ts-ignore
-      const { data, isError, isLoading } = useEnsResolver({
+      const { data, isError, isLoading } = ({
         name: 'awkweb.eth',
       })
      
@@ -35,10 +35,12 @@ const Home = () => {
       return (
         <>
           <h1 className="mb-8 text-4xl font-bold">Profile Info:</h1>
+          <BackArrow>Go Back</BackArrow>
           <div className="inline-flex place-items-center">
             <FrostedCard className="w-auto h-auto place-items-center">
               <ProfileFrame></ProfileFrame>
-              <h1 className="mb-8 text-3x1 font-bold">ENS NAME</h1>
+              <useEnsResolver></useEnsResolver>
+              <h1 className="mb-8 text-3x1 font-bold">useEnsResolver</h1>
               <p>Details:</p>
               <p>Sector: Tech</p>
               <p>Skills: HTML, CSS, TSX</p>
