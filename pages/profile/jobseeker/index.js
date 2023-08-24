@@ -5,7 +5,6 @@ import { Button, Layout, Loader, WalletOptionsModal } from "../../../components"
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
 import BackArrow from "../../../components/BackArrow"
-import UserID from "../../../components/UserID";
 import React from 'react'
 
 function ensName() {
@@ -35,6 +34,13 @@ const Home = () => {
       return (
         <>
           <h1 className="mb-8 text-4xl font-bold">Profile Info:</h1>
+           {/* Add the "attest" button */}
+           <button className="p-2 bg-blue-500 rounded-full">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-white">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15M19.5 12H4.5" />
+  </svg>
+</button>
+
           <BackArrow>Go Back</BackArrow>
           <div className="inline-flex place-items-center">
             <FrostedCard className="w-auto h-auto place-items-center">

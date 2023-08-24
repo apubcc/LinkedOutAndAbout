@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.2",
+    "@spruceid/ssx": "^2.1.0",
     "@wagmi/core": "^1.3.9",
     "next": "12.0.7",
     "react": "^18.1.0",

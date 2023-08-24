@@ -1,14 +1,24 @@
 import React from 'react';
-import { useRouter } from "next/router";
 
-
-const BackArrow = () => {
-  const router = useRouter();
-
-  const handleButtonClick = () => {
-    router.push("/index.tsx"); // Replace "/index.tsx" with the actual route of your index page
-  };
-
-}
+const BackArrow = ({ onClick }) => {
+  return (
+    <button className="absolute top-4 left-4" onClick={onClick}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M15 19l-7-7 7-7"
+        />
+      </svg>
+    </button>
+  );
+};
 
 export default BackArrow;
