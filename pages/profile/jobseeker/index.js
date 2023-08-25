@@ -1,21 +1,20 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 //import type { NextPage } from "next";
 import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from "wagmi";
 import { Button, Layout, Loader, WalletOptionsModal, MeetAttestation } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
-import React from 'react'
 
-function ensName() {
-    //ts-ignore
-      const { data, isError, isLoading } = ({
-        name: 'awkweb.eth',
-      })
+// function ensName() {
+//     //ts-ignore
+//       const { data, isError, isLoading } = ({
+//         name: 'awkweb.eth',
+//       })
      
-      if (isLoading) return <div>Fetching resolver…</div>
-      if (isError) return <div>Error fetching resolver</div>
-      return <div>Resolver: {JSON.stringify(data)}</div>
-    }
+//       if (isLoading) return <div>Fetching resolver…</div>
+//       if (isError) return <div>Error fetching resolver</div>
+//       return <div>Resolver: {JSON.stringify(data)}</div>
+//     }
 
 const Home = () => {
   const [showWalletOptions, setShowWalletOptions] = useState(false);
@@ -28,12 +27,13 @@ const Home = () => {
   const { data: ensResolverData, loading: ensLoading } = useEnsResolver(accountData?.address);
 
   const displayAddressOrEns = () => {
-    if (ensLoading) return "Resolving ENS...";
+    if (isENSLoading) return "Resolving ENS...";
+
     // Assuming ensResolverData contains the ENS name; adjust if the structure is different
-    const userId = ensResolverData?.ensName || accountData?.address || "Address not found";
+    const userId = ensData?.ensName || ensData?.address || "Address not found";
     return (
       <div>
-        <strong>User ID:</strong> {userId}
+        <strong>User ID:</strong> {ensData}  
       </div>
     );
   };
@@ -76,6 +76,7 @@ const Home = () => {
 }
 
     return (
+      
       <>
         <h1 className="mb-8 text-4xl font-bold">
           Job Seeker Profile
