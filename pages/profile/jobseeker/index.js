@@ -4,6 +4,7 @@ import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
+import UserID from "../../../components/UserID";
 
 // function ensName() {
 //     //ts-ignore
@@ -59,10 +60,11 @@ const Home = () => {
                 />
                 <div className="text-lg text-gray-700">
                 <div style={{ marginTop: '0.5rem' }}></div>
-                  {displayAddressOrEns()}
-                  {/* Add the "Level" component */}
-                  <p style={{ fontSize: '0.8rem' }}><strong>Level:</strong> attestationFormat</p>
-                </div>
+                <UserID walletAddress={ensResolverData?.ensName || accountData?.address} /> {/* Place it here */}
+                <p style={{ fontSize: '0.8rem' }}>
+                  <strong>Level:</strong> attestationFormat
+                </p>
+              </div>
               </div>
               <div style={{ marginBottom: '2.5rem' }}></div>
              <p><strong>Details: </strong>details(tags suggestion)</p>
