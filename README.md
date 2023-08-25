@@ -1,42 +1,80 @@
-# Welcome to the NextJS wagmi starter template 👋
-Looking to get up and running with a Typescript / NextJS dApp as quickly as possible? You're in the right place! This repo serves as a minimal template for integrating the wagmi React hooks for Ethereum library with Typescript & NextJS. Due to its ease of customizability and extensibility, this template has been styled with the Tailwind CSS framework. Let's get to it!
-### Check out the live demo 👉 [NextJS wagmi](https://nextjs-wagmi.vercel.app/)
+# (♾,📊) 4Ever.Data – The DataDAO that unleashes the power of #fairAI.
 
-## Get up and running in 3 simple steps:
+## **Intro to 4Ever.Data💡**
 
-### 1. Create an app using this repo as the template
-```bash
-npx create-next-app@latest -e https://github.com/Seth-McKilla/nextjs-wagmi
-```
->Note: The above command automatically downloads and installs the dependencies so no "npm install" or "yarn add" required!
+4Ever.Data rewards contributors, ensures transparency with bias metrics, and provides high-quality datasets. With cutting-edge tech from Filecoin, hosting by Spheron, file upload ease by Lighthouse & notifications via Push.
 
-### 2. Create a .env.local file within the root directory with the following environment variables
-```bash
-NEXT_PUBLIC_INFURA_ID=<insert infura id>
-```
->Note: Grab an Infura ID from the [Infura website](https://infura.io/)
+## **Project Description 💬**
 
-### 3. Start the local development environment
-```bash
-npm run dev
-# or
-yarn dev
-```
+### **❗️Problem Statement ❗️**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1️⃣ Labeling data for machine learning is a challenging and time-consuming task that requires significant human effort.
 
-That's it, you're all set!
+2️⃣ Data contributors often do not receive compensation for the valuable data they provide, leading to a lack of motivation for them to participate in the process.
 
-## Resources
-To learn more about the packages used in this project, take a look at the following resources:
+3️⃣ There is a growing concern about the use of biased datasets in training AI models, which can result in discriminatory outcomes.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [React Typescript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup/) - helpful tips for using Typescript with React.
-- [wagmi Documentation](https://wagmi-xyz.vercel.app/) - learn about the wagmi React hooks for Ethereum.
-- [Tailwind CSS Documentation](https://tailwindcss.com/) - learn about the Tailwind CSS styling framework.
 
-## Deploy on Vercel
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FSeth-McKilla%2Fnextjs-wagmi&env=NEXT_PUBLIC_INFURA_ID)
+### **👀 Vision 👀**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+🔥 4Ever.Data aims to revolutionize the way data is contributed, managed, and used in the AI industry. Our vision is to create a platform that incentivizes individuals and organizations to contribute high-quality data, while also ensuring that this data is free from biases and transparently available to all.
+
+
+### **💯 Unique Value Proposition 💯**
+
+
+🚀 One of the key features of 4Ever.Data is our commitment to tracking bias metrics for each dataset. This helps to ensure that AI models are trained on fair and transparent data, which is critical for avoiding discriminatory outcomes.
+
+## **How It's Made 🛠️**
+
+At the core of 4Ever.Data, we built a set of smart contracts on the Hyperspace testnet, designed to incentivize contributors and provide bias-checked datasets. Our goal is to revolutionize the AI industry and create a fairer, more transparent landscape for data labeling.
+
+To achieve this vision, we leveraged the cutting-edge technology provided by our sponsors - Lighthouse, Push Protocol, and Spheron network.
+
+Lighthouse provides a seamless way to upload files to IPFS and Filecoin, eliminating the need for us to worry about storage providers.
+
+Push Protocol enabled us to facilitate intra-DAO communication in a seamless manner, making it easy for members to communicate and share updates.
+
+Spheron Network was instrumental in making deployment easier, with server-side rendering via next.js and a custom root domain assigned through namecheap.
+
+For DAO members, the process is simple: label data or contribute high-quality datasets, and earn rewards based on the smart contract's determination of your contribution's earnings weight. With 4Ever.Data, everyone has the chance to directly contribute to crucial datasets and be a part of shaping the future of AI.
+
+## **The Stack ⚙️**
+
+- Package-Manager: `pnpm`
+- Monorepo Tooling: `turborepo`
+- Smart Contract Development: `hardhat` `remix` `solidity`
+  - Deploy & Address-Export: `hardhat-deploy`
+  - Typescript-Types: `typechain`
+  - SDK: `openzeppelin` `ethers`
+  - Network: `hyperspace`
+- Frontend: `next` `react`
+  - Contract Interactions: `wagmi`, `rainbowkit`
+  - Styling: `tailwindcss` `lottie`
+  - Styled Components: `emotion`
+- Backend: `node.js`
+  - Database: `supabase` `postgres`
+- Misc:
+  - Linting & Formatting: `eslint`, `prettier`
+  - Filecoin Market API: `zondax API`
+  - Design: `excalidraw`
+  - Deployment: `Spheron.network` `namecheap`
+  - Communication: `Push Protocol`
+  - File Upload: `Lighthouse`
+
+## **Deployments ⛓️**
+
+### Live Demo
+
+[4Ever.Data](https://4everdotdata.me/)
+
+### Smart Contract
+
+[4Ever.Data Template](https://hyperspace.filfox.info/en/address/0x5FbDB2315678afecb367f032d93F642f64180aa3)
+
+[4Ever.Data Fee Oracle](https://hyperspace.filfox.info/en/address/0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0)
+
+[4Ever.Data USDC](https://hyperspace.filfox.info/en/address/0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9)
+
+[4Ever.Data Factory](https://hyperspace.filfox.info/en/address/0x5FC8d32690cc91D4c39d9d3abcBD16989F875707)

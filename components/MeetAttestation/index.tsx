@@ -1,16 +1,17 @@
 import { useState } from "react";
 import type { NextPage } from "next";
 import { useAccount, useBalance } from "wagmi";
-import { Button, Layout, Loader } from "../../../components";
+import { Button, Layout, Loader } from "..";
 import { EAS, SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
 import { ethers } from "ethers";
-import { contractAddresses, schemas } from "../../../constants";
+import { contractAddresses, schemas } from "../../constants";
 
 //Function to attest that you met a person IRL or verifying that you met a person IRL
 //values to submit as parameters are "metIRL" or "isTrue" and the recipient's address
 const attest = async (action: any, recipient: string) => {
   //get contract address based on detected chainId, hardcode for now
-  const chainId = 421613;
+  const arbGoerlichainId = 421613;
+  const avalancheFujiChainId = 43113;
 
   //access EAS contract address in constants file based on chainId
   const EASContractAddress = contractAddresses[chainId].EAS;

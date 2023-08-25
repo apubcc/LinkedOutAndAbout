@@ -1,7 +1,7 @@
 import { useState } from "react";
 //import type { NextPage } from "next";
 import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from "wagmi";
-import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
+import { Button, Layout, Loader, WalletOptionsModal, MeetAttestation } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
 import React from 'react'
@@ -64,10 +64,12 @@ const Home = () => {
               <p><strong>Skills: </strong>skills(Community)</p>
               <p><strong>Languages: </strong>lang(HTML, CSS, Solidity)</p>
             </FrostedCard>
-            <Button className = "bg-gradient-to-r from-white to-gray-100 border border-gray-300 text-black py-2 px-6 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 tracking-wide font-semibold"
-          loading={false}
-          >
-        Attest</Button>
+            <Button
+              loading={false}
+              onClick={() => MeetAttestation("metIRL", "0x66263b35bae43592b4A46F4Fca4D8613987610d4")}
+            >
+              Attest
+            </Button>
       </div>
     </>
   );
