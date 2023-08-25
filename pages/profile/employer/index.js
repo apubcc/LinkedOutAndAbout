@@ -4,8 +4,6 @@ import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
-import BackArrow from "../../../components/BackArrow"
-import UserID from "../../../components/UserID";
 import React from 'react'
 
 function ensName() {
@@ -27,28 +25,48 @@ const Home = () => {
     watch: true,
   });
 
+  const { data: ensResolverData, loading: ensLoading } = useEnsResolver(accountData?.address);
+
+  const displayAddressOrEns = () => {
+    if (ensLoading) return "Resolving ENS...";
+    // Assuming ensResolverData contains the ENS name; adjust if the structure is different
+    const userId = ensResolverData?.ensName || accountData?.address || "Address not found";
+    return <><strong>User ID:</strong> {userId}</>;  // Using JSX to bold the "User ID:" string
+  };
+
   const loading = (accountLoading || balanceLoading) && !balanceData;
 
   const renderContent = () => {
     if (loading) return <Loader size={8} />;
+
     if (balanceData) {
       return (
         <>
-          <h1 className="mb-8 text-4xl font-bold">Profile Info:</h1>
-          <BackArrow>Go Back</BackArrow>
-          <div className="inline-flex place-items-center">
-            <FrostedCard className="w-auto h-auto place-items-center">
-              <ProfileFrame></ProfileFrame>
-              <useEnsResolver></useEnsResolver>
-              <h1 className="mb-8 text-3x1 font-bold">useEnsResolver</h1>
-              <p>Sector: Tech</p>
-              <p>Successful Hires:</p>
-              <p>Looking for: Skills</p>
-            </FrostedCard> 
-          </div>
-        </>
-      );
-    }
+          <h1 className = "mb-0.8 text-4xl font-semibold text-gray-800">Profile Info:</h1> {/* Typography enhancement */}
+          <div className = "grid place-items-center">
+            <FrostedCard className = "shadow-lg bg-white bg-opacity-50 w-auto h-auto p-6 space-y-4"> {/* Added shadow and subtle background */}
+              <div className = "flex items-center space-x-6 mb-4">
+                {/* Pass ensResolverData.ensName and ensResolverData.ensAvatar to ProfileFrame */}
+                <ProfileFrame
+                  address={ensResolverData?.ensName || accountData?.address}
+                  ensAvatar={ensResolverData?.ensAvatar} 
+                  size={102} // Jazzicon's Size
+                />
+                <div className="text-lg text-gray-700">{displayAddressOrEns()}</div>
+              </div>
+              <p><strong>Sector:</strong> Tech</p>
+              <p><strong>Skills:</strong> SWE</p>
+              <p><strong>Experiences:</strong> Mobile Lead of OpenSea</p>
+              <p><strong>Level:</strong> attestationFormat</p>
+            </FrostedCard>
+            <Button className = "bg-gradient-to-r from-white to-gray-100 border border-gray-300 text-black py-2 px-6 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 tracking-wide font-semibold"
+          loading={false}
+          >
+        Attest</Button>          
+      </div>
+    </>
+  );
+}
 
     return (
       <>

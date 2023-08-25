@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import Image from 'next/image';
+import jazzicon from '@metamask/jazzicon';
 import { useEnsAvatar } from 'wagmi';
 
-function ProfileFrame({ ensName }) {
-  const { data, isError, isLoading } = useEnsAvatar({
-    name: ensName,
-  });
+function ProfileFrame({ address, ensAvatar, size }) {
+  const { data: ensData, isError: ensIsError, isLoading: ensIsLoading } = useEnsAvatar({ name: address });
 
-  // Styles for the circular avatar container
-  const avatarStyles = {
-    borderRadius: '50%',   // Makes it circular
-    width: '100px',        // You can adjust this
-    height: '100px',       // You can adjust this
-    overflow: 'hidden',    // Ensures the image stays within the circle
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  };
+  const iconRef = useRef();
 
-  if (isLoading) return <div>Fetching avatar…</div>;
-  if (isError) return <div>Error fetching avatar</div>;
+  useEffect(() => {
+    // Create or update the Jazzicon when the component mounts or the ENS data changes
+    if (!ensData && !ensIsError && !ensIsLoading) {
+      const iconSize = size || 40; // Default size is 40, or use the provided size prop
+      const icon = jazzicon(iconSize, parseInt(address.slice(2, 10), 16));
+      iconRef.current.innerHTML = ''; // Clear any previous icon
+      iconRef.current.appendChild(icon);
+    }
+  }, [address, ensData, ensIsError, ensIsLoading, size]);
 
-  // Assuming the `data` contains the URL of the avatar image
+  if (ensIsLoading) return <div className={`w-${size} h-${size} bg-gray-200 flex items-center justify-center`}>Loading...</div>;
+
+  if (ensIsError || (!ensAvatar && !ensData)) {
+    return (
+      <div
+        className={`w-${size} h-${size} rounded-full bg-gray-300 flex items-center justify-center`}
+        ref={iconRef}
+      ></div>
+    );
+  }
+
   return (
-    <div style={avatarStyles}>
-      <img src={data} alt="ENS Avatar" />
+    <div className={`w-${size} h-${size} rounded-full overflow-hidden`}>
+      <div ref={iconRef}></div>
+      {ensAvatar ? (
+        <Image src={ensAvatar} alt="Profile Avatar" width={size} height={size} />
+      ) : (
+        <Image src={ensData} alt="Profile Avatar" width={size} height={size} />
+      )}
     </div>
   );
 }

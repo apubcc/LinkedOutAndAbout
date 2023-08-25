@@ -4,7 +4,6 @@ import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
-import BackArrow from "../../../components/BackArrow"
 import React from 'react'
 
 function ensName() {
@@ -26,35 +25,53 @@ const Home = () => {
     watch: true,
   });
 
+  const { data: ensResolverData, loading: ensLoading } = useEnsResolver(accountData?.address);
+
+  const displayAddressOrEns = () => {
+    if (ensLoading) return "Resolving ENS...";
+    // Assuming ensResolverData contains the ENS name; adjust if the structure is different
+    const userId = ensResolverData?.ensName || accountData?.address || "Address not found";
+    return (
+      <div>
+        <strong>User ID:</strong> {userId}
+      </div>
+    );
+  };
+  
   const loading = (accountLoading || balanceLoading) && !balanceData;
 
   const renderContent = () => {
     if (loading) return <Loader size={8} />;
+
+
     if (balanceData) {
       return (
         <>
-          <h1 className="mb-8 text-4xl font-bold">Profile Info:</h1>
-           {/* Add the "attest" button */}
-           <button className="p-2 bg-blue-500 rounded-full">
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-white">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15M19.5 12H4.5" />
-  </svg>
-</button>
-
-          <BackArrow>Go Back</BackArrow>
-          <div className="inline-flex place-items-center">
-            <FrostedCard className="w-auto h-auto place-items-center">
-              <ProfileFrame></ProfileFrame>
-              <useEnsResolver></useEnsResolver>
-              <h1 className="mb-8 text-3x1 font-bold">useEnsResolver</h1>
-              <p>Details:</p>
-              <p>Sector: Tech</p>
-              <p>Skills: HTML, CSS, TSX</p>
-            </FrostedCard> 
-          </div>
-        </>
-      );
-    }
+          <h1 className = "mb-0.8 text-4xl font-semibold text-gray-800">Profile Info:</h1> {/* Typography enhancement */}
+          <div className = "grid place-items-center">
+            <FrostedCard className = "shadow-lg bg-white bg-opacity-50 w-auto h-auto p-6 space-y-4"> {/* Added shadow and subtle background */}
+              <div className = "flex items-center space-x-6 mb-4">
+                {/* Pass ensResolverData.ensName and ensResolverData.ensAvatar to ProfileFrame */}
+                <ProfileFrame
+                  address={ensResolverData?.ensName || accountData?.address}
+                  ensAvatar={ensResolverData?.ensAvatar} 
+                  size={102} // Set the size for Jazzicon
+                />
+                <div className="text-lg text-gray-700">{displayAddressOrEns()}</div>
+              </div>
+              <p><strong>Details: </strong>details(tags suggestion)</p>
+              <p><strong>Sector: </strong> Tech</p>
+              <p><strong>Skills: </strong>skills(Community)</p>
+              <p><strong>Languages: </strong>lang(HTML, CSS, Solidity)</p>
+            </FrostedCard>
+            <Button className = "bg-gradient-to-r from-white to-gray-100 border border-gray-300 text-black py-2 px-6 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 tracking-wide font-semibold"
+          loading={false}
+          >
+        Attest</Button>
+      </div>
+    </>
+  );
+}
 
     return (
       <>
