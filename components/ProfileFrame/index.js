@@ -12,7 +12,7 @@ function ProfileFrame({ address, ensAvatar, size }) {
     // Create or update the Jazzicon when the component mounts or the ENS data changes
     if (!ensData && !ensIsError && !ensIsLoading) {
       const iconSize = size || 40; // Default size is 40, or use the provided size prop
-      const icon = jazzicon(iconSize, parseInt(address.slice(2, 10), 16));
+      const icon = jazzicon(iconSize, parseInt((address || '').slice(2, 10), 16));
       iconRef.current.innerHTML = ''; // Clear any previous icon
       iconRef.current.appendChild(icon);
     }

@@ -59,10 +59,12 @@ const Home = () => {
               <p><strong>Experiences:</strong> Mobile Lead of OpenSea</p>
               <p><strong>Level:</strong> attestationFormat</p>
             </FrostedCard>
-            <Button className = "bg-gradient-to-r from-white to-gray-100 border border-gray-300 text-black py-2 px-6 rounded-lg shadow-md hover:shadow-xl transition-transform transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 tracking-wide font-semibold"
-          loading={false}
-          >
-        Attest</Button>          
+            <Button
+              loading={false}
+              onClick={() => attest("metIRL", "0x66263b35bae43592b4A46F4Fca4D8613987610d4")}
+            >
+              Attest
+            </Button>          
       </div>
     </>
   );

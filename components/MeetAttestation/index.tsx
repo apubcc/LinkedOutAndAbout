@@ -14,7 +14,7 @@ const attest = async (action: any, recipient: string) => {
   const avalancheFujiChainId = 43113;
 
   //access EAS contract address in constants file based on chainId
-  const EASContractAddress = contractAddresses[chainId].EAS;
+  const EASContractAddress = contractAddresses[chainId].EAS.contractAddress
 
   // Initialize the sdk with the address of the EAS Schema contract address
   const eas = new EAS(EASContractAddress);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 //import type { NextPage } from "next";
 import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from "wagmi";
-import { Button, Layout, Loader, WalletOptionsModal, MeetAttestation } from "../../../components";
+import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
 import React from 'react'
@@ -57,16 +57,22 @@ const Home = () => {
                   ensAvatar={ensResolverData?.ensAvatar} 
                   size={102} // Set the size for Jazzicon
                 />
-                <div className="text-lg text-gray-700">{displayAddressOrEns()}</div>
+                <div className="text-lg text-gray-700">
+                <div style={{ marginTop: '0.5rem' }}></div>
+                  {displayAddressOrEns()}
+                  {/* Add the "Level" component */}
+                  <p style={{ fontSize: '0.8rem' }}><strong>Level:</strong> attestationFormat</p>
+                </div>
               </div>
-              <p><strong>Details: </strong>details(tags suggestion)</p>
+              <div style={{ marginBottom: '2.5rem' }}></div>
+             <p><strong>Details: </strong>details(tags suggestion)</p>
               <p><strong>Sector: </strong> Tech</p>
               <p><strong>Skills: </strong>skills(Community)</p>
               <p><strong>Languages: </strong>lang(HTML, CSS, Solidity)</p>
             </FrostedCard>
             <Button
               loading={false}
-              onClick={() => MeetAttestation("metIRL", "0x66263b35bae43592b4A46F4Fca4D8613987610d4")}
+              onClick={() => attest("metIRL", "0x66263b35bae43592b4A46F4Fca4D8613987610d4")}
             >
               Attest
             </Button>
