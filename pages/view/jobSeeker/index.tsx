@@ -17,7 +17,7 @@ const attestPost = async (
   const chainId = 421613;
 
   //access EAS contract address in constants file based on chainId
-  const EASContractAddress = contractAddresses[chainId].EAS;
+  const EASContractAddress = contractAddresses[chainId].EAS.contractAddress;
 
   // Initialize the sdk with the address of the EAS Schema contract address
   const eas = new EAS(EASContractAddress);
@@ -57,21 +57,50 @@ const attestPost = async (
     },
   ]);
 
-  const tx = await eas.attest({
-    schema: schemaUID,
-    data: {
-      recipient: postCreator,
-      expirationTime: 0,
-      revocable: true, // Be aware that if your schema is not revocable, this MUST be false
-      data: encodedData,
-    },
-  });
+  // const tx = await eas.attest({
+  //   schema: schemaUID,
+  //   data: {
+  //     recipient: postCreator,
+  //     expirationTime: 0,
+  //     revocable: true, // Be aware that if your schema is not revocable, this MUST be false
+  //     data: encodedData,
+  //   },
+  // });
 
-  const newAttestationUID = await tx.wait();
+  // const newAttestationUID = await tx.wait();
 
   //if operation was metIRL or isTrue, explore using spruce to store the attestation UID in the recipient's spruce profile along with the operation
 
-  console.log("New attestation UID:", newAttestationUID);
+  // console.log("New attestation UID:", newAttestationUID);
+
+  // Define the ABI for the contract
+  const ABI = [
+    "function sendAttestToEAS((bytes32,(address,uint64,bool,bytes32,bytes,uint256)))",
+  ];
+
+  // Create an Interface object
+  const iface = new ethers.utils.Interface(ABI);
+
+  // Define parameters
+  const param1 = schemaUID;
+  const param2 = {
+    0: recipient,
+    1: 0,
+    2: true,
+    3: "0x0000000000000000000000000000000000000000000000000000000000000000",
+    4: ethers.utils.arrayify(
+      "0x0000000000000000000000000000000000000000000000000000000000000001"
+    ), // Arrayify the hex string as we expect bytes type
+    5: 0,
+  };
+
+  // Encode the function call
+  const calldata = iface.encodeFunctionData("sendAttestToEAS", [
+    [param1, param2],
+  ]);
+
+  // Display the calldata
+  console.log(`Calldata: ${calldata}`);
 };
 
 const Home: NextPage = () => {
@@ -83,7 +112,7 @@ const Home: NextPage = () => {
             <button
               onClick={() =>
                 attestPost(
-                  1,
+                  2,
                   "0x5FbDB2315678afecb367f032d93F642f64180aa3",
                   "Blockchain"
                 )
