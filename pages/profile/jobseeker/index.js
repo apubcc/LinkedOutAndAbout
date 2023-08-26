@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
 //import type { NextPage } from "next";
-import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from "wagmi";
+import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsLookup } from "wagmi";
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
 
 const Home = () => {
   const [showWalletOptions, setShowWalletOptions] = useState(false);
-  const [{ address, data: accountData, loading: accountLoading }] = useAccount();
-  //read ensName from useEnsName hook
-  const [ensName] = useEnsName(accountData?.address);
+  const [{ data: accountData, loading: accountLoading }] = useAccount();
+  
   const [{ data: balanceData, loading: balanceLoading }] = useBalance({
     addressOrName: accountData?.address,
     watch: true,
   });
   
+  const [{ data, error, loading1 }] = useEnsLookup({
+    address: accountData?.address
+  });
+
+  const renderEnsName = () => {
+    if (loading1) return <div>Fetching name…</div>
+    if (error || !data) return <div>Error fetching name</div>
+    return <div>{data}</div>
+  };
+
   const loading = (accountLoading || balanceLoading) && !balanceData;
 
   const renderContent = () => {
@@ -36,10 +45,8 @@ const Home = () => {
                 />
                 <div className="text-lg text-gray-700">
                   <div style={{ marginTop: '0.5rem' }}></div>
-                  <div>{ensName ? `${ensName} (${address})` : address}</div>
-                  {/* <UserID walletAddress={ensResolverData?.ensName || accountData?.address} /> {/* Place it here */}
-                    {/* Call displayAddressOrEns here */}
-                    {/* {displayAddressOrEns()} */} 
+                  {/* call displayAddressOrEns */}
+                  {renderEnsName()}
                   <p style={{ fontSize: '0.8rem' }}>
                     <strong>Level:</strong> attestationFormat
                   </p>
