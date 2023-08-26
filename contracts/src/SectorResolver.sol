@@ -48,4 +48,9 @@ contract SectorResolver is SchemaResolver {
     ) internal pure override returns (bool) {
         return true;
     }
+
+    //change post contract address
+    function updatePostContractAddress(address _postContractAddr) external {
+        postContract = Post(_postContractAddr);
+    }
 }
