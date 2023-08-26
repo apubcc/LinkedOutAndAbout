@@ -12,6 +12,8 @@ enabled = true
 
 [rpc_endpoints]
 arbitrum-goerli = "${ARBITRUM_GOERLI_RPC}"
+avalanche-fuji = "${AVX_FUJI_RPC}"
 
 [etherscan]
 arbitrum-goerli = { key = "${ARBITRUM_ETHERSCAN_API_KEY}", url = "https://api-goerli.arbiscan.io/api" }
+avalanche-fuji = { key = "${AVALANCHE_ETHERSCAN_API_KEY}", url = "https://api-testnet.snowtrace.io/api " }
