@@ -3,7 +3,6 @@ import FrostedGlassBox from "../../../components/FrostedCard";
 import SectorOption from "../../../components/SectorOption";
 import SkillsOption from "../../../components/SkillsOption";
 import ExperienceOption from "../../../components/ExperienceOption";
-import exp from "constants";
 
 const EmployerViewPage = () => {
     const [showSectorDropdown, setShowSectorDropdown] = useState(false);
