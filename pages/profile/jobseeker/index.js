@@ -4,41 +4,16 @@ import { useAccount, useBalance, useEnsAvatar, useEnsResolver, useEnsName } from
 import { Button, Layout, Loader, WalletOptionsModal } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
 import ProfileFrame from "../../../components/ProfileFrame";
-import UserID from "../../../components/UserID";
-
-// function ensName() {
-//     //ts-ignore
-//       const { data, isError, isLoading } = ({
-//         name: 'awkweb.eth',
-//       })
-     
-//       if (isLoading) return <div>Fetching resolver…</div>
-//       if (isError) return <div>Error fetching resolver</div>
-//       return <div>Resolver: {JSON.stringify(data)}</div>
-//     }
 
 const Home = () => {
   const [showWalletOptions, setShowWalletOptions] = useState(false);
-  const [{ data: accountData, loading: accountLoading }] = useAccount();
+  const [{ address, data: accountData, loading: accountLoading }] = useAccount();
+  //read ensName from useEnsName hook
+  const [ensName] = useEnsName(accountData?.address);
   const [{ data: balanceData, loading: balanceLoading }] = useBalance({
     addressOrName: accountData?.address,
     watch: true,
   });
-
-  const { data: ensResolverData, loading: ensLoading } = useEnsResolver(accountData?.address);
-
-  const displayAddressOrEns = () => {
-    if (ensLoading) return "Resolving ENS...";
-  
-    // Assuming ensResolverData contains the ENS name; adjust if the structure is different
-    const userId = ensResolverData?.ensName || ensResolverData?.address || "Address not found";
-    return (
-      <div>
-        <strong>User ID:</strong> {userId}
-      </div>
-    );
-  };
-  
   
   const loading = (accountLoading || balanceLoading) && !balanceData;
 
@@ -55,19 +30,20 @@ const Home = () => {
               <div className = "flex items-center space-x-6 mb-4">
                 {/* Pass ensResolverData.ensName and ensResolverData.ensAvatar to ProfileFrame */}
                 <ProfileFrame
-                  address={ensResolverData?.ensName || accountData?.address}
-                  ensAvatar={ensResolverData?.ensAvatar} 
+                  // address={ensResolverData?.ensName || accountData?.address}
+                  // ensAvatar={ensResolverData?.ensAvatar} 
                   size={102} // Set the size for Jazzicon
                 />
                 <div className="text-lg text-gray-700">
-                <div style={{ marginTop: '0.5rem' }}></div>
-                <UserID walletAddress={ensResolverData?.ensName || accountData?.address} /> {/* Place it here */}
-                  {/* Call displayAddressOrEns here */}
-  {displayAddressOrEns()}
-                <p style={{ fontSize: '0.8rem' }}>
-                  <strong>Level:</strong> attestationFormat
-                </p>
-              </div>
+                  <div style={{ marginTop: '0.5rem' }}></div>
+                  <div>{ensName ? `${ensName} (${address})` : address}</div>
+                  {/* <UserID walletAddress={ensResolverData?.ensName || accountData?.address} /> {/* Place it here */}
+                    {/* Call displayAddressOrEns here */}
+                    {/* {displayAddressOrEns()} */} 
+                  <p style={{ fontSize: '0.8rem' }}>
+                    <strong>Level:</strong> attestationFormat
+                  </p>
+                </div>
               </div>
               <div style={{ marginBottom: '2.5rem' }}></div>
              <p><strong>Details: </strong>details(tags suggestion)</p>
