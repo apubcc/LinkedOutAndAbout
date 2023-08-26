@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-// import "../../../../styles/personalizedMenu.css"
-
 type PersonalizedMenuProps = {
     role: string;
 }
@@ -24,16 +22,16 @@ export function PersonalizedMenu(props: PersonalizedMenuProps) {
     const [sectorOptions, setSectorOptions] = useState([["Developer", "developer"], ["Designer", "designer"], ["Business", "business"], ["Marketing", "marketing"]]);
     const [languagesOptions, setLanguagesOptions] = useState([["English","english"], ["Chinese", "chinese"], ["Spanish", "spanish"], ["French", "french"], ["German", "german"], ["Italian", "italian"], ["Russian", "russian"], ["Portuguese", "portuguese"], ["Hindi", "hindi"], ["Arabic", "arabic"], ["Japanese", "japanese"], ["Other", "other"]]);
 
-    const skillsForDeveloper = [["HTML", "html"], ["CSS", "css"], ["JavaScript", "javascript"], ["React", "react"], ["Node.js", "nodejs"], ["Solidity", "solidity"],["Python", "python"], ["Java", "java"], ["C++", "c++"], ["C#", "c#"], ["SQL", "sql"], ["Other", "other"]];
-    const skillsForDesigner = [["Photoshop", "photoshop"], ["Illustrator", "illustrator"], ["Figma", "figma"], ["Other", "other"]];
-    const skillsForBusiness = [["Finance", "finance"], ["Marketing", "marketing"], ["Other", "other"]];
-    const skillsForMarketing = [["Finance", "finance"], ["Marketing", "marketing"], ["Other", "other"]];
+    const skillsForDeveloper = [["HTML", "html"], ["CSS", "css"], ["JavaScript", "javascript"], ["React", "react"], ["Node.js", "nodejs"], ["Solidity", "solidity"],["Python", "python"], ["Java", "java"], ["C++", "c++"], ["C#", "c#"], ["SQL", "sql"]];
+    const skillsForDesigner = [["Photoshop", "photoshop"], ["Illustrator", "illustrator"], ["Figma", "figma"]];
+    const skillsForBusiness = [["Finance", "finance"], ["Marketing", "marketing"]];
+    const skillsForMarketing = [["Finance", "finance"], ["Marketing", "marketing"]];
     const skillsForAll = [...skillsForDeveloper, ...skillsForDesigner, ...skillsForBusiness, ...skillsForMarketing];
 
     function onSelectSector(e: any) {
         setSectorSelection([e.target.value]);
     }
-
+    
     useEffect(() => {
         var skills = [["", ""]];
 
