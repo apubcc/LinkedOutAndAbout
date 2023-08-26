@@ -28,16 +28,17 @@ const Home = () => {
   const { data: ensResolverData, loading: ensLoading } = useEnsResolver(accountData?.address);
 
   const displayAddressOrEns = () => {
-    if (isENSLoading) return "Resolving ENS...";
-
+    if (ensLoading) return "Resolving ENS...";
+  
     // Assuming ensResolverData contains the ENS name; adjust if the structure is different
-    const userId = ensData?.ensName || ensData?.address || "Address not found";
+    const userId = ensResolverData?.ensName || ensResolverData?.address || "Address not found";
     return (
       <div>
-        <strong>User ID:</strong> {ensData}  
+        <strong>User ID:</strong> {userId}
       </div>
     );
   };
+  
   
   const loading = (accountLoading || balanceLoading) && !balanceData;
 
@@ -61,6 +62,8 @@ const Home = () => {
                 <div className="text-lg text-gray-700">
                 <div style={{ marginTop: '0.5rem' }}></div>
                 <UserID walletAddress={ensResolverData?.ensName || accountData?.address} /> {/* Place it here */}
+                  {/* Call displayAddressOrEns here */}
+  {displayAddressOrEns()}
                 <p style={{ fontSize: '0.8rem' }}>
                   <strong>Level:</strong> attestationFormat
                 </p>
