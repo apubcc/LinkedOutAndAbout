@@ -3,7 +3,7 @@ import FrostedGlassBox from "../../../components/FrostedCard";
 import SectorOption from "../../../components/SectorOption";
 import SkillsOption from "../../../components/SkillsOption";
 import ExperienceOption from "../../../components/ExperienceOption";
-import exp from "constants";
+import Layout from "../../../components/Layout";
 
 const EmployerViewPage = () => {
     const [showSectorDropdown, setShowSectorDropdown] = useState(false);
@@ -13,6 +13,7 @@ const EmployerViewPage = () => {
     };
 
     return (
+        <Layout>
         <div className="flex flex-col h-screen justify-between p-8">
             <div className="flex flex-row justify-center mt-20 items-start flex-grow gap-20">
                 {/* Sector */}
@@ -84,6 +85,7 @@ const EmployerViewPage = () => {
                 </FrostedGlassBox>
             </div>
         </div>
+        </Layout>
     );
 };
 

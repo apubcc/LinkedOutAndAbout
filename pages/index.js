@@ -1,11 +1,9 @@
 /* eslint-disable react/no-unknown-property */
-import { Suspense, useEffect, useState } from "react";
-import { useAccount, useBalance } from "wagmi";
-import { Button, Layout, Loader, WalletOptionsModal } from "../components";
+import React, { Suspense, useEffect, useState } from "react";
+import { useAccount, useBalance, useEnsName } from "wagmi";
+import { Button, Layout, Loader } from "../components";
 import { Canvas } from "@react-three/fiber";
-import React, { useRef } from 'react'
-import { PerspectiveCamera } from '@react-three/drei'
-import { OrbitControls } from '@react-three/drei'
+import { PerspectiveCamera, OrbitControls } from '@react-three/drei'
 import { SSX } from '@spruceid/ssx';
 import EthLogo from '../components/EthLogo';
 
@@ -23,12 +21,14 @@ const SignOutButtonHandler = async () => {
 
 const Home = () => {
   const [userWallet, setUserWallet] = useState(null); 
-  const [showWalletOptions, setShowWalletOptions] = useState(false);
-  const [{ data: accountData, loading: accountLoading }] = useAccount();
-  const [{ data: balanceData, loading: balanceLoading }] = useBalance({
-    addressOrName: accountData?.address,
-    watch: true,
-  });
+  const { address, isConnecting, isDisconnected, isConnected } = useAccount();
+  const { balanceData, isError, isLoading } = useBalance({
+    address: address,
+  })
+
+  const { data: ensName, isError: ensError, isLoading: ensLoading } = useEnsName({
+    address: address,
+  })
 
   async function signInOnClick() {
     await signInButtonHandler();
@@ -57,11 +57,11 @@ const Home = () => {
     // read localstorage session and set userWallet
   }, [userWallet]);
 
-  const loading = (accountLoading || balanceLoading) && !balanceData;
+  // const loading = (accountLoading || balanceLoading) && !balanceData;
 
   const renderContent = () => {
-    if (loading) return <Loader size={8} />;
-    if (balanceData) {
+    if (isLoading) return <Loader size={8} />;
+    if (isConnected) {
       return (
         <>
           <div className="w-[350px] h-[350px]">
@@ -83,13 +83,17 @@ const Home = () => {
 
           { userWallet ? 
           <div className="flex items-center justify-between">
+            { ensName ?
+            <h2 className="mr-8 text-2xl font-semi-bold">Signed in as {ensName}</h2>
+            :
             <h2 className="mr-8 text-2xl font-semi-bold">Signed in as { getWalletAddress(userWallet) }</h2>
-            <Button loading={accountLoading} onClick={() => signOutOnClick()}>
+            }
+            <Button loading={isConnecting} onClick={() => signOutOnClick()}>
               Sign-out
             </Button>
             </div>
             :
-            <Button loading={accountLoading} onClick={() => signInOnClick()}>
+            <Button loading={isConnecting} onClick={() => signInOnClick()}>
               Sign-in With Ethereum
             </Button>
           }
@@ -124,9 +128,7 @@ const Home = () => {
 
   return (
     <>
-      <WalletOptionsModal open={showWalletOptions} setOpen={setShowWalletOptions} />
-
-      <Layout showWalletOptions={showWalletOptions} setShowWalletOptions={setShowWalletOptions}>
+      <Layout>
         <div className="grid h-screen place-items-center">
           <div className="grid place-items-center">{renderContent()}</div>
         </div>
