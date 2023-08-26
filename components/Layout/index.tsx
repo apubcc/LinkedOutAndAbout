@@ -1,8 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
 import { ReactNode } from "react";
-import { Button, MenuDropdown, WalletOptionsModal } from "..";
+import { Button, MenuDropdown } from "..";
 import { useAccount } from "wagmi";
+import { useEnsName } from "wagmi";
+import { useDisconnect } from "wagmi";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useEnsAvatar } from "wagmi";
 
 interface Props {
   children: ReactNode;
@@ -12,19 +16,30 @@ interface Props {
 
 export default function Layout(props: Props) {
   const { children, showWalletOptions, setShowWalletOptions } = props;
+  const { disconnect } = useDisconnect()
 
-  const [{ data: accountData, loading }, disconnect] = useAccount({
-    fetchEns: true,
+  // const [{ data: accountData, loading }, disconnect] = useAccount({
+  //   fetchEns: true,
+  // });
+  const { address, isConnected, isDisconnected } = useAccount()
+  const { data: ensNameData, isError, isLoading } = useEnsName({
+    address: address
   });
 
+  const { data: ensAvatarData, isError: ensAvatarIsError, isLoading: ensAvatarIsLoading } = useEnsAvatar({
+    name: ensNameData,
+  });
+
+  //console.log(ensAvatarData)
+
   const renderLabel = () => {
-    if (accountData?.ens) {
+    if (address) {
       return (
         <>
           <div className="relative w-8 h-8 mr-2">
-            {accountData.ens.avatar ? (
+            {ensAvatarData? (
               <Image
-                src={accountData?.ens.avatar}
+                src={ensAvatarData}
                 alt="ENS Avatar"
                 layout="fill"
                 objectFit="cover"
@@ -41,19 +56,18 @@ export default function Layout(props: Props) {
             )}
           </div>
           <span className="truncate max-w-[100px]">
-            {accountData.ens?.name}
+            {ensNameData}
           </span>
         </>
       );
     }
-
+    console.log("address", address)
     return (
-      <span className="truncate max-w-[150px]">{accountData?.address}</span>
+      <span className="truncate max-w-[150px]">{address}</span>
     );
   };
-
   const renderButton = () => {
-    if (accountData) {
+    if (isConnected) {
       return (
         <MenuDropdown
           label={renderLabel()}
@@ -63,12 +77,7 @@ export default function Layout(props: Props) {
     }
 
     return (
-      <Button
-        loading={loading || showWalletOptions}
-        onClick={() => setShowWalletOptions(true)}
-      >
-        Connect
-      </Button>
+      <ConnectButton />
     );
   };
 
@@ -79,11 +88,6 @@ export default function Layout(props: Props) {
         <meta name="description" content="NextJS and wagmi template" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <WalletOptionsModal
-        open={showWalletOptions}
-        setOpen={setShowWalletOptions}
-      />
 
       <div className="absolute w-screen">
         <div className="flex items-center justify-between p-4">

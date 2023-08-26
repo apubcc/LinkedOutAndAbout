@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { Suspense, useEffect, useState } from "react";
 import { useAccount, useBalance } from "wagmi";
-import { Button, Layout, Loader, WalletOptionsModal } from "../components";
+import { Button, Layout, Loader } from "../components";
 import { Canvas } from "@react-three/fiber";
 import React, { useRef } from 'react'
 import { PerspectiveCamera } from '@react-three/drei'
@@ -24,11 +24,11 @@ const SignOutButtonHandler = async () => {
 const Home = () => {
   const [userWallet, setUserWallet] = useState(null); 
   const [showWalletOptions, setShowWalletOptions] = useState(false);
-  const [{ data: accountData, loading: accountLoading }] = useAccount();
-  const [{ data: balanceData, loading: balanceLoading }] = useBalance({
-    addressOrName: accountData?.address,
-    watch: true,
-  });
+  //const [{ data: accountData, loading: accountLoading }] = useAccount();
+  const { address, isConnecting, isDisconnected } = useAccount();
+  const { balanceData, isError, isLoading } = useBalance({
+    address: address,
+  })
 
   async function signInOnClick() {
     await signInButtonHandler();
@@ -57,10 +57,10 @@ const Home = () => {
     // read localstorage session and set userWallet
   }, [userWallet]);
 
-  const loading = (accountLoading || balanceLoading) && !balanceData;
+  // const loading = (accountLoading || balanceLoading) && !balanceData;
 
   const renderContent = () => {
-    if (loading) return <Loader size={8} />;
+    if (isLoading) return <Loader size={8} />;
     if (balanceData) {
       return (
         <>
@@ -124,8 +124,6 @@ const Home = () => {
 
   return (
     <>
-      <WalletOptionsModal open={showWalletOptions} setOpen={setShowWalletOptions} />
-
       <Layout showWalletOptions={showWalletOptions} setShowWalletOptions={setShowWalletOptions}>
         <div className="grid h-screen place-items-center">
           <div className="grid place-items-center">{renderContent()}</div>
