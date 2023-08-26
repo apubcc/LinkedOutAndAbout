@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import React, { Suspense, useEffect, useState } from "react";
-import { useAccount, useBalance } from "wagmi";
+import { useAccount, useBalance, useEnsName } from "wagmi";
 import { Button, Layout, Loader } from "../components";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls } from '@react-three/drei'
@@ -21,10 +21,12 @@ const SignOutButtonHandler = async () => {
 
 const Home = () => {
   const [userWallet, setUserWallet] = useState(null); 
-  const [showWalletOptions, setShowWalletOptions] = useState(false);
-  //const [{ data: accountData, loading: accountLoading }] = useAccount();
-  const { address, isConnecting, isDisconnected } = useAccount();
+  const { address, isConnecting, isDisconnected, isConnected } = useAccount();
   const { balanceData, isError, isLoading } = useBalance({
+    address: address,
+  })
+
+  const { data: ensName, isError: ensError, isLoading: ensLoading } = useEnsName({
     address: address,
   })
 
@@ -59,7 +61,7 @@ const Home = () => {
 
   const renderContent = () => {
     if (isLoading) return <Loader size={8} />;
-    if (balanceData) {
+    if (isConnected) {
       return (
         <>
           <div className="w-[350px] h-[350px]">
@@ -81,13 +83,17 @@ const Home = () => {
 
           { userWallet ? 
           <div className="flex items-center justify-between">
+            { ensName ?
+            <h2 className="mr-8 text-2xl font-semi-bold">Signed in as {ensName}</h2>
+            :
             <h2 className="mr-8 text-2xl font-semi-bold">Signed in as { getWalletAddress(userWallet) }</h2>
-            <Button loading={accountLoading} onClick={() => signOutOnClick()}>
+            }
+            <Button loading={isConnecting} onClick={() => signOutOnClick()}>
               Sign-out
             </Button>
             </div>
             :
-            <Button loading={accountLoading} onClick={() => signInOnClick()}>
+            <Button loading={isConnecting} onClick={() => signInOnClick()}>
               Sign-in With Ethereum
             </Button>
           }
