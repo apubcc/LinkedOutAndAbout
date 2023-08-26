@@ -13,25 +13,32 @@ interface Props {
 
 export default function Layout(props: Props) {
   const { children } = props;
-  const { disconnect } = useDisconnect()
+  const { disconnect } = useDisconnect();
 
-  const { address, isConnected, isDisconnected } = useAccount()
-  const { data: ensNameData, isError, isLoading } = useEnsName({
-    address: address
+  const { address, isConnected, isDisconnected } = useAccount();
+  const {
+    data: ensNameData,
+    isError,
+    isLoading,
+  } = useEnsName({
+    address: address,
   });
 
-  const { data: ensAvatarData, isError: ensAvatarIsError, isLoading: ensAvatarIsLoading } = useEnsAvatar({
+  const {
+    data: ensAvatarData,
+    isError: ensAvatarIsError,
+    isLoading: ensAvatarIsLoading,
+  } = useEnsAvatar({
     name: ensNameData,
   });
 
-  //console.log(ensAvatarData)
-
   const renderLabel = () => {
-    if (address) {
+    console.log("address", address);
+    if (address && ensNameData) {
       return (
         <>
           <div className="relative w-8 h-8 mr-2">
-            {ensAvatarData? (
+            {ensNameData ? (
               <Image
                 src={ensAvatarData}
                 alt="ENS Avatar"
@@ -49,17 +56,27 @@ export default function Layout(props: Props) {
               />
             )}
           </div>
-          <span className="truncate max-w-[100px]">
-            {ensNameData}
-          </span>
+          <span className="truncate max-w-[100px]">{ensNameData}</span>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div className="relative w-8 h-8 mr-2">
+            <Image
+              src="/images/black-gradient.png"
+              alt="ENS Avatar"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-full"
+            />
+          </div>
+          <span className="truncate max-w-[100px]">{address}</span>
         </>
       );
     }
-    console.log("address", address)
-    return (
-      <span className="truncate max-w-[150px]">{address}</span>
-    );
   };
+
   const renderButton = () => {
     if (isConnected) {
       return (
@@ -70,9 +87,7 @@ export default function Layout(props: Props) {
       );
     }
 
-    return (
-      <ConnectButton />
-    );
+    return <ConnectButton />;
   };
 
   return (
