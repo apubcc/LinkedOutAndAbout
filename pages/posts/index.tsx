@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useContractRead,
   useContractWrite,
@@ -11,34 +10,40 @@ import PostCard from "../../components/PostCard";
 import PostCreate from "../../components/PostCreate";
 import { Layout } from "../../components";
 
-const createPost = async () => {
+export default function Posts() {
+  //start create post
   const { chain } = useNetwork();
   const currentChainId = chain?.id;
 
+  console.log(currentChainId);
+
   //get contract address of Post contract based on chain id
-  const postContractAddress =
-    contractAddresses[currentChainId].Post.contractAddress;
+  const postContractAddress = contractAddresses[421613].Post.contractAddress;
 
   //get the abi
-  const postContractABI = contractAddresses[currentChainId].Post.abi;
+  const postContractABI = contractAddresses[421613].Post.abi;
 
   //use contract write
-  const { data, isLoading, isSuccess, write } = useContractWrite({
+  const {
+    write: createPost,
+    data,
+    isLoading,
+    isSuccess,
+  } = useContractWrite({
     address: postContractAddress,
     abi: postContractABI,
     functionName: "createPost",
+    args: ["test", 1693087235, "Blockchain"],
   });
-};
-
-export default function Posts() {
+  //end create post
   const [showCreatePost, setShowCreatePost] = useState(false);
 
-  async function getLastPostId() {
-    const data = await useContractRead(contract, "getLastPostId");
+  //   async function getLastPostId() {
+  //     const data = await useContractRead(contract, "getLastPostId");
 
-    console.log(data);
-    console.log("hello");
-  }
+  //     console.log(data);
+  //     console.log("hello");
+  //   }
 
   function loadMorePosts() {
     console.log("load more posts");
@@ -56,7 +61,7 @@ export default function Posts() {
     // getLastPostId();
   }, []);
 
-  getLastPostId();
+  //   getLastPostId();
 
   return (
     <Layout>
@@ -68,7 +73,8 @@ export default function Posts() {
             </div>
             <button
               className="bg-white/50 hover:bg-white/30 text-black font-bold py-2 px-4 rounded-xl shadow-md hover:shadow-lg duration-200"
-              onClick={() => setShowCreatePost(true)}
+              //   onClick={() => setShowCreatePost(true)}
+              onClick={() => createPost()}
             >
               Create Post
             </button>
