@@ -15,12 +15,9 @@ interface Props {
 }
 
 export default function Layout(props: Props) {
-  const { children, showWalletOptions, setShowWalletOptions } = props;
+  const { children } = props;
   const { disconnect } = useDisconnect()
 
-  // const [{ data: accountData, loading }, disconnect] = useAccount({
-  //   fetchEns: true,
-  // });
   const { address, isConnected, isDisconnected } = useAccount()
   const { data: ensNameData, isError, isLoading } = useEnsName({
     address: address

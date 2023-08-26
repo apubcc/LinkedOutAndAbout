@@ -124,7 +124,7 @@ const Home = () => {
 
   return (
     <>
-      <Layout showWalletOptions={showWalletOptions} setShowWalletOptions={setShowWalletOptions}>
+      <Layout>
         <div className="grid h-screen place-items-center">
           <div className="grid place-items-center">{renderContent()}</div>
         </div>
