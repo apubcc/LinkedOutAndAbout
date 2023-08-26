@@ -5,8 +5,6 @@ import { Button, Layout, Loader } from "../../../components";
 import { EAS, SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
 import { ethers } from "ethers";
 import { contractAddresses, schemas } from "../../../constants";
-//import ethers
-var Web3 = require("web3");
 
 //Function to attest that you met a person IRL or verifying that you met a person IRL
 //values to submit as parameters are "metIRL" or "isTrue" and the recipient's address
