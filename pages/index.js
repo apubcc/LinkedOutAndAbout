@@ -1,11 +1,9 @@
 /* eslint-disable react/no-unknown-property */
-import { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useAccount, useBalance } from "wagmi";
 import { Button, Layout, Loader } from "../components";
 import { Canvas } from "@react-three/fiber";
-import React, { useRef } from 'react'
-import { PerspectiveCamera } from '@react-three/drei'
-import { OrbitControls } from '@react-three/drei'
+import { PerspectiveCamera, OrbitControls } from '@react-three/drei'
 import { SSX } from '@spruceid/ssx';
 import EthLogo from '../components/EthLogo';
 

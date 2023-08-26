@@ -2,11 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { ReactNode } from "react";
 import { Button, MenuDropdown } from "..";
-import { useAccount } from "wagmi";
-import { useEnsName } from "wagmi";
-import { useDisconnect } from "wagmi";
+import { useAccount, useEnsName, useDisconnect, useEnsAvatar } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useEnsAvatar } from "wagmi";
 
 interface Props {
   children: ReactNode;

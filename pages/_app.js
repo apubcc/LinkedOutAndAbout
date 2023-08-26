@@ -1,10 +1,10 @@
 import "../styles/globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
 import { WagmiConfig, createConfig, configureChains } from 'wagmi'
 import {mainnet, arbitrumGoerli, avalancheFuji } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 import { infuraProvider } from 'wagmi/providers/infura'
-import "@rainbow-me/rainbowkit/styles.css";
 import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 
 // Configure chains & providers with the Alchemy & infura provider.
