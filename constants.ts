@@ -1198,7 +1198,433 @@ export const contractAddresses = {
       contractAddress: "0x9FC32F730CcD03AFd7E3775F05B8b4a1174522d5",
     },
     AttestRecipient: {
-      contractAddress: "0xd0dAd0622b848f3f290B3611A5d5610BFA81bE09",
+      contractAddress: "0xa37dd05F01446bbA6DC91d39fD7f2D205aaAF94f",
+    },
+  },
+  43113: {
+    Post_V2: {
+      contractAddress: "0x716abc6de63157474acf85EE51d229EEC7E4273F",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_interchainGasPaymasterAddress",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_mailboxAddress",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "newInterchainGasPaymasterAddress",
+              type: "address",
+            },
+          ],
+          name: "InterchainGasPaymasterUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "newMailboxAddress",
+              type: "address",
+            },
+          ],
+          name: "MailboxUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "postId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "postAttestCount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "postAttester",
+              type: "address",
+            },
+          ],
+          name: "PostAttestCountUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "postId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "postContent",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "postDate",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "postCreator",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "postSector",
+              type: "string",
+            },
+          ],
+          name: "PostCreated",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_gasAmount",
+              type: "uint256",
+            },
+          ],
+          name: "changeGasAmount",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_interchainGasPaymasterAddress",
+              type: "address",
+            },
+          ],
+          name: "changeInterchainGasPaymasterAddress",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_mailboxAddress",
+              type: "address",
+            },
+          ],
+          name: "changeMailboxAddress",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_postContent",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "_postDate",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "_postSector",
+              type: "string",
+            },
+          ],
+          name: "createPost",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "start",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "end",
+              type: "uint256",
+            },
+          ],
+          name: "getAllPosts",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "postContent",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "postAttestCount",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "postDate",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "postCreator",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "postSector",
+                  type: "string",
+                },
+              ],
+              internalType: "struct Post_V2.PostStruct[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "user",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "start",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "end",
+              type: "uint256",
+            },
+          ],
+          name: "getAllPostsByUser",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "postContent",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "postAttestCount",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "postDate",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "postCreator",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "postSector",
+                  type: "string",
+                },
+              ],
+              internalType: "struct Post_V2.PostStruct[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getLastPostId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "postId",
+              type: "uint256",
+            },
+          ],
+          name: "getPost",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "string",
+                  name: "postContent",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "postAttestCount",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "postDate",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "postCreator",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "postSector",
+                  type: "string",
+                },
+              ],
+              internalType: "struct Post_V2.PostStruct",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "postId",
+              type: "uint256",
+            },
+          ],
+          name: "getPostSector",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "user",
+              type: "address",
+            },
+          ],
+          name: "getTotalPostsByUser",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "interchainGasPaymasterAddress",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "mailboxAddress",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint32",
+              name: "destinationDomain",
+              type: "uint32",
+            },
+            {
+              internalType: "bytes32",
+              name: "_recipientAddress",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes",
+              name: "_messageBody",
+              type: "bytes",
+            },
+          ],
+          name: "sendInterchainCall",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+      ],
     },
   },
 };
