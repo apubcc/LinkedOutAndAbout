@@ -12,7 +12,7 @@ export default function PostCard() {
     }
 
     return (
-        <div className="card bg-white/[0.3] p-10 rounded-xl">
+        <div className="card bg-white/[0.3] p-10 rounded-xl snap-center">
             <div className="card-header mb-3 font-bold">
                 <div className="card-username">USER ABC</div>
                 <div className="card-sector text-xs">Computer Science</div>
