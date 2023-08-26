@@ -7,9 +7,9 @@ import ProfileFrame from "../../../components/ProfileFrame";
 
 const Home = () => {
   const [showWalletOptions, setShowWalletOptions] = useState(false);
-  const [{ data: accountData, loading: accountLoading }] = useAccount();
-  const { address } = useAccount();
-  const [{ data: ensName}] = useEnsName({address});
+  const [{ address, data: accountData, loading: accountLoading }] = useAccount();
+  //read ensName from useEnsName hook
+  const [ensName] = useEnsName(accountData?.address);
   const [{ data: balanceData, loading: balanceLoading }] = useBalance({
     addressOrName: accountData?.address,
     watch: true,

@@ -1,54 +1,48 @@
 import "../styles/globals.css";
-import { WagmiConfig, createConfig, configureChains, mainnet } from 'wagmi'
+import type { AppProps } from "next/app";
+import { Provider, chain, defaultChains } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+import { WalletLinkConnector } from "wagmi/connectors/walletLink";
 
-import { alchemyProvider } from 'wagmi/providers/alchemy'
-import { publicProvider } from 'wagmi/providers/public'
+const infuraId = process.env.NEXT_PUBLIC_INFURA_ID;
 
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+const chains = defaultChains;
 
-// Configure chains & providers with the Alchemy provider.
-// Two popular providers are Alchemy (alchemy.com) and Infura (infura.io)
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [mainnet],
-  [alchemyProvider({ apiKey: 'ys_3UoP4Kyb-RFPSYs0jR33ZmZOrKXSB' }), publicProvider()],
-)
+type Connector =
+  | InjectedConnector
+  | WalletConnectConnector
+  | WalletLinkConnector;
 
-// Set up wagmi config
-const config = createConfig({
-  autoConnect: true,
-  connectors: [
-    new MetaMaskConnector({ chains }),
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName: 'wagmi',
-      },
-    }),
+const connectors = ({ chainId }: { chainId?: number }): Connector[] => {
+  const rpcUrl =
+    chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ??
+    chain.mainnet.rpcUrls[0];
+  return [
+    new InjectedConnector({ chains }),
     new WalletConnectConnector({
-      chains,
       options: {
-        projectId: '...',
+        infuraId,
+        qrcode: true,
       },
     }),
-    new InjectedConnector({
-      chains,
+    new WalletLinkConnector({
       options: {
-        name: 'Injected',
-        shimDisconnect: true,
+        appName: "LinkedOutAndAbout",
+        jsonRpcUrl: `${rpcUrl}/${infuraId}`,
       },
     }),
-  ],
-  publicClient,
-  webSocketPublicClient,
-})
+  ];
+};
 
-export default function App({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig config={config}>
-      <Component {...pageProps} />
-    </WagmiConfig>
-  )
+
+      <Provider autoConnect connectors={connectors}>
+        <Component {...pageProps} />
+      </Provider>
+    
+  );
 }
+
+
