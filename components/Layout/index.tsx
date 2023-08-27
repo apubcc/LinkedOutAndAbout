@@ -33,7 +33,6 @@ export default function Layout(props: Props) {
   });
 
   const renderLabel = () => {
-    console.log("address", address);
     if (address && ensNameData) {
       return (
         <>

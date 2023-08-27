@@ -1,56 +1,59 @@
-import { MouseEvent } from "react";
 import { useState } from "react";
+import { MouseEvent } from "react";
+
 import { useContractWrite, useNetwork, useAccount } from "wagmi";
-import { contractAddresses } from "../../constants";
 import { write } from "fs";
+
+import { contractAddresses } from "../../constants";
 import { parseEther } from "ethers/lib/utils";
-
-function createPost(textContent: string) {
-  console.log(textContent);
-  const { chain } = useNetwork();
-  const currentChainId = chain?.id;
-
-  //get contract address of Post contract based on chain id
-  const postContractAddress =
-    contractAddresses[currentChainId].Post.contractAddress;
-
-  //get the abi
-  const postContractABI = contractAddresses[currentChainId].Post.abi;
-
-  //use contract write
-  const {
-    write: createPost,
-    data,
-    isLoading,
-    isSuccess,
-  } = useContractWrite({
-    address: postContractAddress,
-    abi: postContractABI,
-    functionName: "createPost",
-    args: [textContent, 1693087235, "Blockchain"],
-  });
-
-  isLoading && console.log("loading");
-  isSuccess && console.log("success", data);
-}
 
 export default function PostCreate(props: {
   show: boolean;
   setShow: Function;
 }) {
+  const { chain } = useNetwork();
+  const { address } = useAccount();
   const { show, setShow } = props;
+
   const [textareaInput, setTextareaInput] = useState("");
   const [textCount, setTextCount] = useState(0);
+  const [showPleaseLogin, setShowPleaseLogin] = useState(false);
+  const [showSuccessPost, setShowSuccessPost] = useState(false);
+
+  const currentChainId = chain?.id;
+  const postContractAddress = contractAddresses[currentChainId]?.Post.contractAddress;
+  const postContractABI = contractAddresses[currentChainId]?.Post.abi;
+
+  const {
+    write: createPost,
+  } = useContractWrite({
+    address: postContractAddress,
+    abi: postContractABI,
+    functionName: "createPost",
+    args: [textareaInput, (Math.floor(Date.now()/1000)), "Blockchain"],
+    onSuccess: () => {
+      setShow(false);
+      setShowSuccessPost(true);
+      setTextareaInput("");
+    },
+  });
 
   function handleCancelOnClick(e: any) {
     e.preventDefault();
+    
     setShow(false);
   }
 
   function handleSubmitOnClick(e: any) {
-    createPost(textareaInput);
-
     e.preventDefault();
+
+    if (address === undefined) {
+      setShow(false);
+      setShowPleaseLogin(true);
+      return;      
+    }
+
+    createPost(textareaInput);
   }
 
   function handleTextInput(e: any) {
@@ -122,6 +125,46 @@ export default function PostCreate(props: {
             </form>
           </div>
         </div>
+      )}
+      {showPleaseLogin && (
+        <div
+        className="formCreate absolute h-screen w-screen top-0 left-0 flex items-center justify-center z-50"
+        onClick={() => setShowPleaseLogin(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="formCard flex flex-col px-[10%] py-3 bg-white/50 rounded-xl px-10 py-8"
+          >
+            <div className="formTitle text-2xl font-bold flex justify-center items-center">
+              Please Login!
+            </div>
+            <button
+              onClick={() => setShowPleaseLogin(false)}
+              className="formButtonSubmit mt-10 px-8 py-3 text-lg rounded-xl duration-500 text-white font-bold bg-black hover:bg-black/80 hover:shadow-lg">
+              Close
+              </button>
+        </div>
+      </div>
+      )}
+      {showSuccessPost && (
+        <div
+        className="formCreate absolute h-screen w-screen top-0 left-0 flex items-center justify-center z-50"
+        onClick={() => setShowPleaseLogin(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="formCard flex flex-col px-[10%] py-3 bg-white/50 rounded-xl px-10 py-8"
+          >
+            <div className="formTitle text-2xl font-bold flex justify-center items-center">
+              Post Success!
+            </div>
+            <button
+              onClick={() => setShowSuccessPost(false)}
+              className="formButtonSubmit mt-10 px-8 py-3 text-lg rounded-xl duration-500 text-white font-bold bg-black hover:bg-black/80 hover:shadow-lg">
+              Close
+              </button>
+        </div>
+      </div>
       )}
     </>
   );

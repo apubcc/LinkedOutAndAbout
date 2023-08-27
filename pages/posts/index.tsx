@@ -1,53 +1,53 @@
 import React, { useEffect, useState } from "react";
-import {
-  useContractRead,
-  useContractWrite,
-  useAccount,
-  useNetwork,
-} from "wagmi";
+import { write } from "fs";
+import {  useContractRead, useContractWrite, useAccount, useNetwork } from "wagmi";
 import { contractAddresses } from "../../constants";
+
 import PostCard from "../../components/PostCard";
 import PostCreate from "../../components/PostCreate";
+
 import { Layout } from "../../components";
+import { get } from "http";
+import { type } from "os";
 
 export default function Posts() {
-  //start create post
   const { chain } = useNetwork();
-  const currentChainId = chain?.id;
 
-  console.log(currentChainId);
+  var currentChainId = chain?.id;
 
-  //get contract address of Post contract based on chain id
-  const postContractAddress = contractAddresses[421613].Post.contractAddress;
+  const postContractAddress = contractAddresses[currentChainId]?.Post.contractAddress;
+  const postContractABI = contractAddresses[currentChainId]?.Post.abi;
 
-  //get the abi
-  const postContractABI = contractAddresses[421613].Post.abi;
-
-  //use contract write
-  const {
-    write: createPost,
-    data,
-    isLoading,
-    isSuccess,
-  } = useContractWrite({
+  const [lastPostId, setLastPostId] = useState(0);
+  const [numberOfPosts, setNumberOfPosts] = useState(13);
+  const [showCreatePost, setShowCreatePost] = useState(false);
+  
+  useContractRead({
     address: postContractAddress,
     abi: postContractABI,
-    functionName: "createPost",
-    args: ["test", 1693087235, "Blockchain"],
+    functionName: "getLastPostId",
+    onSuccess: (data) => {
+      setLastPostId(Number(data));
+    }
   });
-  //end create post
-  const [showCreatePost, setShowCreatePost] = useState(false);
 
-  //   async function getLastPostId() {
-  //     const data = await useContractRead(contract, "getLastPostId");
+  function getPosts() {
+    var posts = [];
 
-  //     console.log(data);
-  //     console.log("hello");
-  //   }
+    for (var i = lastPostId; i > numberOfPosts; i--) {
+      posts.push(<PostCard postNumber={i} key={i} />);
+    }
+
+    return posts;
+  }
 
   function loadMorePosts() {
-    console.log("load more posts");
-    // getLastPostId();
+    var numToMinus = 10;
+    if (numberOfPosts - numToMinus < 0) {
+      numToMinus = numberOfPosts;
+    }
+
+    setNumberOfPosts(numberOfPosts - numToMinus);
   }
 
   function handlePostsOnScroll(e: any) {
@@ -58,13 +58,10 @@ export default function Posts() {
 
   useEffect(() => {
     loadMorePosts();
-    // getLastPostId();
   }, []);
 
-  //   getLastPostId();
-
   return (
-    <Layout>
+    <Layout showWalletOptions={true}>
       <div className="flex flex-row justify-center">
         <div className="w-[30%]">
           <div className="bg-white/30 shadow-md p-7 mx-[15%] mt-[20%] rounded-xl">
@@ -73,31 +70,19 @@ export default function Posts() {
             </div>
             <button
               className="bg-white/50 hover:bg-white/30 text-black font-bold py-2 px-4 rounded-xl shadow-md hover:shadow-lg duration-200"
-              //   onClick={() => setShowCreatePost(true)}
-              onClick={() => createPost()}
+                onClick={() => setShowCreatePost(true)}
             >
               Create Post
             </button>
           </div>
         </div>
         <div
-          className="w-[70%] h-screen flex flex-col gap-5 overflow-y-scroll pr-[20%] py-3 snap-y"
+          className="w-[70%] h-screen flex flex-col gap-5 overflow-y-scroll pr-[20%] py-3 pt-10 snap-y"
           onScroll={(e) => {
             handlePostsOnScroll(e);
           }}
         >
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
+          {getPosts()}
         </div>
         <PostCreate show={showCreatePost} setShow={setShowCreatePost} />
       </div>
