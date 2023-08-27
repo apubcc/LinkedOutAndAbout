@@ -51,7 +51,7 @@ Join us in revolutionizing the way professionals connect. LinkedOutAndAbout is w
 
 Follow these steps to start your journey with LinkedOutAndAbout:
 
-1. **📥 Installation**: Clone the repository and follow the installation guide to set up LinkedOutAndAbout.
+1. **📥 Installation**: Clone the repository, `yarn install`, then `yarn dev`
 
 2. **🔐 User Registration**: Sign up using your blockchain wallet and create a personalized profile.
 
@@ -67,6 +67,21 @@ Follow these steps to start your journey with LinkedOutAndAbout:
 
 
 ### **The Stack ⚙️**
+
+- Package-Manager: `yarn`
+- Smart Contract Development: `foundry` `solidity`
+  - Deploy: `forge script`
+  - Typescript-Types: `typechain`
+  - SDK: `openzeppelin` `ethers`
+  - Network: `avalanche-fuji` `arbitrum-goerli`
+- Frontend: `next` `react`
+  - Contract Interactions: `wagmi`, `rainbowkit`
+  - Styling: `tailwindcss` `lottie`
+  - Styled Components: `emotion` `three.js`
+- Backend: `Kepler`
+- Misc:
+  - Linting & Formatting: `eslint`, `prettier`
+  - Design: `excalidraw`
 
 #### **Deployments ⛓️**
 
@@ -87,87 +102,6 @@ Follow these steps to start your journey with LinkedOutAndAbout:
 
     - Post_V2: [Post](https://testnet.snowtrace.io/address/0x56590e8bdf817759fe543f55b80734a1424eaaef#writeContract)
 
-
-#### **Development:**
-
-- **Testing Libraries**:
-
-  - [testing-library/jest-dom](https://testing-library.com/docs/ecosystem-jest-dom/)
-
-  - [testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)
-
-  - [types/node](https://www.typescriptlang.org/tsconfig#node)
-
-
-#### Project:
-
-- **Blockchain Attestation**:
-
-  - [wagmi](https://github.com/ethereum/web3.js/)
-
-  - [siwe](https://github.com/username/siwe)
-
-  - [spruceID](https://github.com/username/spruceID)
-
-
-- **User Interface Libraries**:
-
-  - [@ethereum-attestation-service/eas-sdk](https://github.com/ethereum-attestation-service/eas-sdk)
-
-  - [@headlessui/react](https://headlessui.dev/react/)
-  
-  - [@rainbow-me/rainbowkit](https://github.com/rainbow-me/rainbowkit)
-
-  - [@react-three/drei](https://github.com/pmndrs/drei)
-
-  - [@react-three/fiber](https://github.com/pmndrs/react-three-fiber)
-
-  - [@spruceid/ssx](https://github.com/spruceid/ssx)
-
-  - [@types/styled-components](https://github.com/DefinitelyTyped/DefinitelyTyped)
-
-  - [@types/three](https://github.com/DefinitelyTyped/DefinitelyTyped)
-
-
-- **User Interface Components**:
-
-  - [framer-motion](https://www.framer.com/motion/)
-
-  - [react-icons](https://react-icons.github.io/react-icons/)
-
-
-- **Web Framework**:
-
-  - [next](https://nextjs.org/)
-
-  - [react](https://reactjs.org/)
-
-  - [react-dom](https://reactjs.org/docs/react-dom.html)
-
-
-- **Styling and UI Components**:
-
-  - [react-dropdown](https://github.com/fraserxu/react-dropdown)
-
-  - [react-reconciler](https://reactjs.org/docs/codebase-overview.html#reconciler)
-
-  - [styled-components](https://styled-components.com/)
-
-
-- **3D Rendering**:
-
-  - [three](https://threejs.org/)
-
-
-- **State Management**:
-
-  - [viem](https://github.com/username/viem)
-
-
-- **User Authentication**:
-
-  - [iron-session](https://www.npmjs.com/package/iron-session)
-
 #### **License 📄**
 
 This project operates under the MIT License, giving you the freedom to build upon our vision.
@@ -177,5 +111,3 @@ This project operates under the MIT License, giving you the freedom to build upo
 Embrace the future of professional networking with LinkedOutAndAbout. Say hello to bias-free connections and a network that truly reflects your skills and aspirations.
 
 If you have any feedbacks, feel free to drop them on GitHub!
-
-[Get Started](#getting-started)
