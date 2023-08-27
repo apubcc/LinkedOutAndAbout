@@ -11,7 +11,7 @@ const EmployerViewPage = () => {
     const toggleSectorDropdown = () => {
         setShowSectorDropdown(!showSectorDropdown);
     };
-
+    const accountData = null;
     // Using the useEnsAvatar hook
     const { data, isError, isLoading } = useEnsAvatar({
         address: accountData?.address,
@@ -32,8 +32,7 @@ const EmployerViewPage = () => {
                         <div className="list-choice">
                             <div
                                 className="list-choice-title text-3xl mb-2 cursor-pointer text-center"
-                                onClick={toggleSectorDropdown}
-                            >
+                                onClick={toggleSectorDropdown}>
                                 Sector
                             </div>
                             <div className={`list-choice-objects ${showSectorDropdown ? "block" : "hidden"} mt-1 text-center`}>
