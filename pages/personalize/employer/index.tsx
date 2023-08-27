@@ -1,9 +1,11 @@
 import { PersonalizedMenu } from "../components/personalizedMenu";
+import Layout from "../../../components/Layout";
 
 export default function EmployerPersonalize() {
 
     return (
-
-        <PersonalizedMenu role="employer" />
+        <Layout>
+            <PersonalizedMenu role="employer" />
+        </Layout>
     )
 }
