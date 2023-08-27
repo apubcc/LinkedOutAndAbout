@@ -92,9 +92,9 @@ At LinkedOutAndAbout, we've harnessed a cutting-edge technology stack to bring o
 
     - Post: [Post](https://goerli.arbiscan.io/address/0x4eE36Ac14D03445FC0D21C52EF06F7780c9981e3)
 
-    - AttestRecipient: [AttestRecipient]https://goerli.arbiscan.io/address/0xa37dd05F01446bbA6DC91d39fD7f2D205aaAF94f
+    - AttestRecipient: [AttestRecipient](https://goerli.arbiscan.io/address/0xa37dd05F01446bbA6DC91d39fD7f2D205aaAF94f)
     
-    - EAS: [EthereumAttestationService]https://goerli.arbiscan.io/address/0xaEF4103A04090071165F78D45D83A0C0782c2B2a
+    - EAS: [EthereumAttestationService](https://goerli.arbiscan.io/address/0xaEF4103A04090071165F78D45D83A0C0782c2B2a)
     
     - SectorResolver: [SectorResolver](https://goerli.arbiscan.io/address/0x9FC32F730CcD03AFd7E3775F05B8b4a1174522d5)
     
