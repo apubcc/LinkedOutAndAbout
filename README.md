@@ -103,7 +103,7 @@ At LinkedOutAndAbout, we've harnessed a cutting-edge technology stack to bring o
 
 - Avalanche Fuji
 
-    - Post: [Post](https://testnet.snowtrace.io/address/0x716abc6de63157474acf85ee51d229eec7e4273f)
+    - Post_V2: [Post](https://testnet.snowtrace.io/address/0x56590e8bdf817759fe543f55b80734a1424eaaef#writeContract)
 
 
 #### **Development:**
