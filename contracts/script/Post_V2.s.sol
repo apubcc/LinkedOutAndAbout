@@ -8,7 +8,7 @@ contract Deploy is Script {
     address internal constant MAILBOX_ADDRESS =
         0xCC737a94FecaeC165AbCf12dED095BB13F037685;
     address internal constant INTERCHAIN_GAS_PAYMASTER_ADDRESS =
-        0x8f9C3888bFC8a5B25AED115A82eCbb788b196d2a;
+        0xF90cB82a76492614D07B82a7658917f3aC811Ac1;
 
     bytes32 internal constant POST_V2_SALT =
         bytes32(abi.encode(0x4c4f264142545f504f535433)); // ~ "LO&ABT_POST3"
