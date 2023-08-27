@@ -106,6 +106,7 @@ const attestPost = async (
 const Home: NextPage = () => {
   return (
     <>
+    <Layout>
       <div className="grid h-screen place-items-center">
         <div className="card-style relative p-6 border rounded-lg shadow-lg bg-gray-100 max-w-md">
           <div className="absolute top-2 right-2">
@@ -114,7 +115,7 @@ const Home: NextPage = () => {
                 attestPost(
                   2,
                   "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-                  "Blockchain"
+                  "Human Resource"
                 )
               }
               className="bg-blue-500 p-2 rounded-full hover:bg-blue-600 focus:outline-none"
@@ -124,6 +125,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
+    </Layout>
     </>
   );
 };

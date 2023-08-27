@@ -1,4 +1,4 @@
-import { PersonalizedMenu } from "../components/personalizedMenu";
+import { PersonalizedMenu } from "../../../components/PersonalizedMenu";
 
 export default function EmployerPersonalize() {
 

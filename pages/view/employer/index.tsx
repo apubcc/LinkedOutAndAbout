@@ -1,167 +1,104 @@
 import React, { useState } from "react";
 import FrostedGlassBox from "../../../components/FrostedCard";
+import SectorOption from "../../../components/SectorOption";
+import SkillsOption from "../../../components/SkillsOption";
+import ExperienceOption from "../../../components/ExperienceOption";
+import Layout from "../../../components/Layout";
 
 const EmployerViewPage = () => {
-    const containerStyle = {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh", // Optional: adjust the container height
-    };
+  const [showSectorDropdown, setShowSectorDropdown] = useState(false);
 
-    const cardsContainerStyle = {
-        display: "flex",
-        flexDirection: "row", // Stack the cards in a column
-        gap: "20px", // Gap between the cards
-    };
+  const toggleSectorDropdown = () => {
+    setShowSectorDropdown(!showSectorDropdown);
+  };
 
-    const cardStyle = {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%", // Make cards take full width
-    };
-
-    const cardTitleStyle = {
-        fontSize: 30,
-        marginBottom: "10px",
-        cursor: "pointer",
-        textAlign: "center",
-    };
-
-    const sectorDropdownStyle = {
-        display: "none", // Start with dropdown hidden
-        marginTop: "5px",
-        textAlign: "center",
-
-    };
-
-    const nftcardstyle = {
-        display: "flex",
-        flexDirection: "row", // Stack the cards in a column
-    };
-
-    const [showSectorDropdown, setShowSectorDropdown] = useState(false);
-
-    const toggleSectorDropdown = () => {
-        setShowSectorDropdown(!showSectorDropdown);
-    };
-
-    return (
-        <div style={containerStyle} className="create-container mb-100">
-            <div style={cardsContainerStyle} className="cards-container ">
-                <div style={cardStyle} className="card">
-                    <FrostedGlassBox className={"h-auto inline-item-center"}>
-                        <div className="list-choice">
-                            <div
-                                className="list-choice-title"
-                                style={cardTitleStyle}
-                                onClick={toggleSectorDropdown}
-                            >
-                                Sector
-                            </div>
-                            <div
-                                className="list-choice-objects"
-                                style={{ ...sectorDropdownStyle, display: showSectorDropdown ? "block" : "none" }}
-                            >
-                                <select>
-                                    <option value="developer">Developer</option>
-                                    <option value="designer">Designer</option>
-                                    <option value="business">Business</option>
-                                    <option value="marketing">Marketing</option>
-                                </select>
-                            </div>
-                        </div>
-                    </FrostedGlassBox>
+  return (
+    <Layout>
+      <div className="flex flex-col h-screen justify-between p-8">
+        <div className="flex flex-row justify-center mt-20 items-start flex-grow gap-20">
+          {/* Sector */}
+          <div className="flex flex-col justify-center items-center flex-grow">
+            <FrostedGlassBox className="w-full h-full flex justify-center items-center ml-20">
+              <div className="list-choice">
+                <div
+                  className="list-choice-title text-3xl mb-2 cursor-pointer text-center"
+                  onClick={toggleSectorDropdown}
+                >
+                  Sector
                 </div>
-
-                <div style={cardStyle} className="card">
-                    <FrostedGlassBox className={"h-auto inline-item-center"}>
-                        <div className="list-choice">
-                            <div
-                                className="list-choice-title"
-                                style={cardTitleStyle}
-                                onClick={toggleSectorDropdown}
-                            >
-                                Skills
-                            </div>
-                            {showSectorDropdown && (
-                                <div className="list-choice-objects"
-                                style={{ ...sectorDropdownStyle, display: showSectorDropdown ? "block" : "none" }}
-                                > 
-                                    <select>
-                                        <option value="Choose" disabled hidden>Choose</option>
-                                        <option value="HTML">HTML</option>
-                                        <option value="CSS">CSS</option>
-                                        <option value="JavaScript">JavaScript</option>
-                                        <option value="React">React</option>
-                                        <option value="Node.js">Node.js</option>
-                                        <option value="Solidity">Solidity</option>
-                                        <option value="Python">Python</option>
-                                        <option value="Java">Java</option>
-                                        <option value="C++">C++</option>
-                                        <option value="C#">C#</option>
-                                        <option value="SQL">SQL</option>
-                                        <option value="Other">Other</option>
-                                        <option value="Photoshop">Photoshop</option>
-                                        <option value="Illustrator">Illustrator</option>
-                                        <option value="Figma">Figma</option>
-                                        <option value="Finance">Finance</option>
-                                        <option value="Marketing">Marketing</option>
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    </FrostedGlassBox>
+                <div
+                  className={`list-choice-objects ${
+                    showSectorDropdown ? "block" : "hidden"
+                  } mt-1 text-center`}
+                >
+                  <SectorOption />
                 </div>
+              </div>
+            </FrostedGlassBox>
+          </div>
 
-                <div style={cardStyle} className="card">
-                    <FrostedGlassBox className={"h-auto inline-item-center"}>
-                        <div className="list-choice">
-                            <div
-                                className="list-choice-title"
-                                style={cardTitleStyle}
-                                onClick={toggleSectorDropdown}
-                            >
-                                Experience
-                            </div>
-                            {showSectorDropdown && (
-                                <div className="list-choice-objects"
-                                style={{ ...sectorDropdownStyle, display: showSectorDropdown ? "block" : "none" }}>
-                                    <select>
-                                        <option value="Choose" disabled hidden>Choose</option>
-                                        <option value="<3 years">Less than 3 years</option>
-                                        <option value="3-5 years">3-5 years</option>
-                                        <option value="5-10 years">5-10 years</option>
-                                        <option value="10+ years">More than 10 years</option>
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    </FrostedGlassBox>
+          {/* Skills */}
+          <div className="flex flex-col justify-center items-center flex-grow">
+            <FrostedGlassBox className="w-full h-full flex justify-center items-center">
+              <div className="list-choice">
+                <div
+                  className="list-choice-title text-3xl mb-2 cursor-pointer text-center"
+                  onClick={toggleSectorDropdown}
+                >
+                  Skills
                 </div>
-                
-            </div>
-        <div style={nftcardstyle}>
-            <div className="mt-50">
-                <FrostedGlassBox className="nft-card ">
-                    NFT
-                </FrostedGlassBox>
-                <FrostedGlassBox className="nft-card">
-                    NFT
-                </FrostedGlassBox>
-                <FrostedGlassBox className="nft-card">
-                    NFT
-                </FrostedGlassBox>
-            </div>
-        </div>    
+                {showSectorDropdown && (
+                  <div
+                    className={`list-choice-objects ${
+                      showSectorDropdown ? "block" : "hidden"
+                    } mt-1 text-center`}
+                  >
+                    <SkillsOption />
+                  </div>
+                )}
+              </div>
+            </FrostedGlassBox>
+          </div>
+
+          {/* Experience */}
+          <div className="flex flex-col justify-center items-center flex-grow">
+            <FrostedGlassBox className="w-full h-full flex justify-center items-center">
+              <div className="list-choice">
+                <div
+                  className="list-choice-title text-3xl mb-2 cursor-pointer text-center"
+                  onClick={toggleSectorDropdown}
+                >
+                  Experience
+                </div>
+                {showSectorDropdown && (
+                  <div
+                    className={`list-choice-objects ${
+                      showSectorDropdown ? "block" : "hidden"
+                    } mt-1 text-center`}
+                  >
+                    <ExperienceOption />
+                  </div>
+                )}
+              </div>
+            </FrostedGlassBox>
+          </div>
         </div>
 
-        
-    );
+        {/* NFT Section */}
+        <div className="flex relative flex-row justify-center items-center mb-20 gap-20 ml-8  w-full">
+          <FrostedGlassBox className="w-40 h-40 flex justify-center items-center">
+            NFT
+          </FrostedGlassBox>
+          <FrostedGlassBox className="w-40 h-40 flex justify-center items-center">
+            NFT
+          </FrostedGlassBox>
+          <FrostedGlassBox className="w-40 h-40 flex justify-center items-center">
+            NFT
+          </FrostedGlassBox>
+        </div>
+      </div>
+    </Layout>
+  );
 };
 
 export default EmployerViewPage;
-
-
