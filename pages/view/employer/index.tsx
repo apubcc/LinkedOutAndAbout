@@ -85,6 +85,8 @@ const EmployerViewPage = () => {
             <div className="flex relative flex-row justify-center items-center mb-20 gap-20 ml-8  w-full">
                 <FrostedGlassBox className="w-40 h-40 flex justify-center items-center">
                     {renderEnsAvatar()}  {/* Call the function to render the ENS Avatar */}
+                    {/* Fetch JobSeeker data & profile in Kepler */}
+                    {/* Filter and get profile (nft) */}
                 </FrostedGlassBox>
                 <FrostedGlassBox className="w-40 h-40 flex justify-center items-center">
                     {renderEnsAvatar()}  {/* Call the function to render the ENS Avatar */}
