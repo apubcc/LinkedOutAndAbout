@@ -21,6 +21,7 @@ const signInButtonHandler = async () => {
   const session = await ssx.signIn();
   const orbitExists = await ssx.storage.activateSession();
   console.log('orbitExists', orbitExists);
+  console.log('ssx', ssx);
 
   // store session into session storage
   localStorage.setItem('session', JSON.stringify(session));
