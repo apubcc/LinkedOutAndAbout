@@ -23,11 +23,7 @@ At LinkedOutAndAbout, we offer a distinctive value proposition that sets us apar
 
 **🌟 Transparent Networking:** With meticulous tracking of bias metrics for each dataset. By addressing the root cause of discriminatory outcomes, we're creating a platform where authenticity and transparency flourish.
 
-**🚀 Empowered Connections:** LinkedOutAndAbout gives you the power to control your networking destiny. Your data is truly yours, freeing you from centralized control and bias. Forge connections that reflect your skills and aspirations, unburdened by external factors.
-
 **🌐 Global Inclusivity:** Geographical limitations are a thing of the past. Our decentralized approach lets you connect with professionals from around the world, promoting inclusivity and diversity like never before.
-
-**🔒 Data Ownership:** We believe that your professional data belongs to you. With LinkedOutAndAbout, you have complete ownership and control over your personal information, ensuring privacy and data security.
 
 **✨ Empowered Professional Narrative:** Showcase your achievements, skills, and aspirations without the shadow of bias. LinkedOutAndAbout empowers you to shape your professional narrative and shine on your own terms.
 
@@ -63,7 +59,7 @@ Follow these steps to start your journey with LinkedOutAndAbout:
 
 6. **✍️ Create Posts**: Share your thoughts, ideas, and updates through posts on LinkedOutAndAbout.
 
-7. **🔍 Attestation Factory**: Build trust by attesting to the authenticity of posts and connections.
+7. **🔍 Attestations**: Build trust by attesting to the authenticity of posts and connections.
 
 
 ### **The Stack ⚙️**
@@ -76,8 +72,8 @@ Follow these steps to start your journey with LinkedOutAndAbout:
   - Network: `avalanche-fuji` `arbitrum-goerli`
 - Frontend: `next` `react`
   - Contract Interactions: `wagmi`, `rainbowkit`
-  - Styling: `tailwindcss` `lottie`
-  - Styled Components: `emotion` `three.js`
+  - Styling: `tailwindcss`
+  - Styled Components: `three.js`
 - Backend: `Kepler`
 - Misc:
   - Linting & Formatting: `eslint`, `prettier`
