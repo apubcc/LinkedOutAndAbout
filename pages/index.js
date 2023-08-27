@@ -1,17 +1,43 @@
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/no-unknown-property */
 import React, { Suspense, useEffect, useState } from "react";
 import { useAccount, useBalance, useEnsName } from "wagmi";
-import { Button, Layout, Loader } from "../components";
+import { Button, Layout, Loadern } from "../components";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls } from '@react-three/drei'
 import { SSX } from '@spruceid/ssx';
 import EthLogo from '../components/EthLogo';
 
 const signInButtonHandler = async () => {
-  const ssx = new SSX();
+  const ssx = new SSX({
+    modules: {
+      storage: {
+        prefix: 'profile_data',
+        hosts: ['https://kepler.spruceid.xyz'],
+        autoCreateNewOrbit: true,
+      },
+    },
+  });
   const session = await ssx.signIn();
-  // store session into localstorage
+  const orbitExists = await ssx.storage.activateSession();
+  console.log('orbitExists', orbitExists);
+  
+  const writeData = await ssx.storage.put('profile_data', 
+  [{
+    id: 10,
+    sector: 'Software Engineering',
+    skills: "frontend",
+    experience: "1 year",
+  }]);
+  
+  const { data } = ssx.storage.list();
+  console.log('data', data);
+  console.log('writeData', writeData);
+
+  // store session into session storage
   localStorage.setItem('session', JSON.stringify(session));
+  //allow session to be used in other pages
+  return session;
 };
 
 const SignOutButtonHandler = async () => {
@@ -80,7 +106,6 @@ const Home = () => {
           <h1 className="mb-8 text-4xl font-bold">
             Wallet Connected! Sign-in With Ethereum to Verify Your Identity
           </h1>
-
           { userWallet ? 
           <div className="flex items-center justify-between">
             { ensName ?
