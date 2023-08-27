@@ -1225,6 +1225,62 @@ export const contractAddresses = {
           anonymous: false,
           inputs: [
             {
+              indexed: true,
+              internalType: "uint32",
+              name: "destinationDomain",
+              type: "uint32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "recipientAddress",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "bytes",
+              name: "messageBody",
+              type: "bytes",
+            },
+          ],
+          name: "CallDispatched",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "messageId",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "uint32",
+              name: "destinationDomain",
+              type: "uint32",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "gasAmount",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "InterchainGasPaid",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
               indexed: false,
               internalType: "address",
               name: "newInterchainGasPaymasterAddress",
@@ -1245,31 +1301,6 @@ export const contractAddresses = {
             },
           ],
           name: "MailboxUpdated",
-          type: "event",
-        },
-        {
-          anonymous: false,
-          inputs: [
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "postId",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "postAttestCount",
-              type: "uint256",
-            },
-            {
-              indexed: false,
-              internalType: "address",
-              name: "postAttester",
-              type: "address",
-            },
-          ],
-          name: "PostAttestCountUpdated",
           type: "event",
         },
         {
@@ -1326,7 +1357,7 @@ export const contractAddresses = {
           inputs: [
             {
               internalType: "address",
-              name: "_interchainGasPaymasterAddress",
+              name: "_newAddress",
               type: "address",
             },
           ],
@@ -1339,7 +1370,7 @@ export const contractAddresses = {
           inputs: [
             {
               internalType: "address",
-              name: "_mailboxAddress",
+              name: "_newAddress",
               type: "address",
             },
           ],
@@ -1369,6 +1400,19 @@ export const contractAddresses = {
           name: "createPost",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "gasAmount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {
@@ -1540,25 +1584,6 @@ export const contractAddresses = {
         {
           inputs: [
             {
-              internalType: "uint256",
-              name: "postId",
-              type: "uint256",
-            },
-          ],
-          name: "getPostSector",
-          outputs: [
-            {
-              internalType: "string",
-              name: "",
-              type: "string",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
               internalType: "address",
               name: "user",
               type: "address",
@@ -1605,7 +1630,7 @@ export const contractAddresses = {
           inputs: [
             {
               internalType: "uint32",
-              name: "destinationDomain",
+              name: "_destinationDomain",
               type: "uint32",
             },
             {
