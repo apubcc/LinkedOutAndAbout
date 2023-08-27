@@ -6,30 +6,15 @@ import {IMailbox} from "./interfaces/IMailbox.sol";
 import {IInterchainGasPaymaster} from "./interfaces/IInterchainGasPaymaster.sol";
 
 contract Post_V2 {
+    using Counters for Counters.Counter;
+    Counters.Counter private _postIds;
+
     address public interchainGasPaymasterAddress;
     address public mailboxAddress;
 
-    uint256 gasAmount = 550000;
+    uint256 public gasAmount = 550000;
 
-    // Events
-    event PostCreated(
-        uint256 postId,
-        string postContent,
-        uint postDate,
-        address postCreator,
-        string postSector
-    );
-    event PostAttestCountUpdated(
-        uint256 postId,
-        uint256 postAttestCount,
-        address postAttester
-    );
-    event InterchainGasPaymasterUpdated(
-        address newInterchainGasPaymasterAddress
-    );
-    event MailboxUpdated(address newMailboxAddress);
-
-    // Post structure
+    // Structs
     struct PostStruct {
         string postContent;
         uint256 postAttestCount;
@@ -38,11 +23,33 @@ contract Post_V2 {
         string postSector;
     }
 
-    using Counters for Counters.Counter;
-    Counters.Counter private _postIds;
-
+    // Mappings
     mapping(uint256 => PostStruct) private idToPosts;
     mapping(address => uint256[]) private userToPostIds;
+
+    // Events
+    event PostCreated(
+        uint256 postId,
+        string postContent,
+        uint256 postDate,
+        address postCreator,
+        string postSector
+    );
+    event InterchainGasPaymasterUpdated(
+        address newInterchainGasPaymasterAddress
+    );
+    event MailboxUpdated(address newMailboxAddress);
+    event CallDispatched(
+        uint32 indexed destinationDomain,
+        bytes32 indexed recipientAddress,
+        bytes messageBody
+    );
+    event InterchainGasPaid(
+        bytes32 indexed messageId,
+        uint32 indexed destinationDomain,
+        uint256 gasAmount,
+        address indexed sender
+    );
 
     // Constructor
     constructor(
@@ -53,11 +60,7 @@ contract Post_V2 {
         mailboxAddress = _mailboxAddress;
     }
 
-    IMailbox mailbox = IMailbox(mailboxAddress);
-    IInterchainGasPaymaster igp =
-        IInterchainGasPaymaster(interchainGasPaymasterAddress);
-
-    // Create post
+    // Create Post
     function createPost(
         string calldata _postContent,
         uint256 _postDate,
@@ -69,11 +72,14 @@ contract Post_V2 {
 
         _postIds.increment();
         uint256 postId = _postIds.current();
-        PostStruct storage post = idToPosts[postId];
-        post.postContent = _postContent;
-        post.postDate = _postDate;
-        post.postCreator = msg.sender;
-        post.postSector = _postSector;
+
+        idToPosts[postId] = PostStruct({
+            postContent: _postContent,
+            postAttestCount: 0,
+            postDate: _postDate,
+            postCreator: msg.sender,
+            postSector: _postSector
+        });
 
         userToPostIds[msg.sender].push(postId);
 
@@ -86,40 +92,67 @@ contract Post_V2 {
         );
     }
 
-    //change the gas amount
+    // Change Gas Amount (consider adding onlyOwner)
     function changeGasAmount(uint256 _gasAmount) external {
         gasAmount = _gasAmount;
     }
 
-    //change the interchain gas paymaster address
-    function changeInterchainGasPaymasterAddress(
-        address _interchainGasPaymasterAddress
-    ) external {
-        interchainGasPaymasterAddress = _interchainGasPaymasterAddress;
-        emit InterchainGasPaymasterUpdated(_interchainGasPaymasterAddress);
+    // Change Interchain Gas Paymaster Address (consider adding onlyOwner)
+    function changeInterchainGasPaymasterAddress(address _newAddress) external {
+        interchainGasPaymasterAddress = _newAddress;
+        emit InterchainGasPaymasterUpdated(_newAddress);
     }
 
-    //change the mailbox address
-    function changeMailboxAddress(address _mailboxAddress) external {
-        mailboxAddress = _mailboxAddress;
-        emit MailboxUpdated(_mailboxAddress);
+    // Change Mailbox Address (consider adding onlyOwner)
+    function changeMailboxAddress(address _newAddress) external {
+        mailboxAddress = _newAddress;
+        emit MailboxUpdated(_newAddress);
     }
 
-    // Get post
+    // Send Interchain Call
+    function sendInterchainCall(
+        uint32 _destinationDomain,
+        bytes32 _recipientAddress,
+        bytes calldata _messageBody
+    ) external payable {
+        IMailbox mailbox = IMailbox(mailboxAddress);
+        IInterchainGasPaymaster igp = IInterchainGasPaymaster(
+            interchainGasPaymasterAddress
+        );
+
+        bytes32 messageId = mailbox.dispatch(
+            _destinationDomain,
+            _recipientAddress,
+            _messageBody
+        );
+        emit CallDispatched(
+            _destinationDomain,
+            _recipientAddress,
+            _messageBody
+        );
+
+        igp.payForGas{value: msg.value}(
+            messageId,
+            _destinationDomain,
+            gasAmount,
+            msg.sender
+        );
+
+        emit InterchainGasPaid(
+            messageId,
+            _destinationDomain,
+            gasAmount,
+            msg.sender
+        );
+    }
+
+    // Get Post
     function getPost(uint256 postId) external view returns (PostStruct memory) {
         require(postId <= _postIds.current(), "Post does not exist");
         return idToPosts[postId];
     }
 
-    // Get post sector
-    function getPostSector(
-        uint256 postId
-    ) external view returns (string memory) {
-        require(postId <= _postIds.current(), "Post does not exist");
-        return idToPosts[postId].postSector;
-    }
-
-    // Get all posts with pagination
+    // Get All Posts with Pagination
     function getAllPosts(
         uint256 start,
         uint256 end
@@ -140,7 +173,7 @@ contract Post_V2 {
         return posts;
     }
 
-    // Get all posts by user with pagination
+    // Get All Posts by User with Pagination
     function getAllPostsByUser(
         address user,
         uint256 start,
@@ -162,32 +195,13 @@ contract Post_V2 {
         return posts;
     }
 
-    // Get total number of posts by a user
+    // Get Total Number of Posts by a User
     function getTotalPostsByUser(address user) external view returns (uint256) {
         return userToPostIds[user].length;
     }
 
-    // Get the last used post ID
+    // Get the Last Used Post ID
     function getLastPostId() external view returns (uint256) {
         return _postIds.current();
-    }
-
-    //this is used to call AttestRecipient contract on Arbitrum Goerli
-    function sendInterchainCall(
-        uint32 destinationDomain,
-        bytes32 _recipientAddress,
-        bytes calldata _messageBody
-    ) external payable {
-        bytes32 messageId = mailbox.dispatch(
-            destinationDomain,
-            _recipientAddress,
-            _messageBody
-        );
-        igp.payForGas{value: msg.value}(
-            messageId, // The ID of the message that was just dispatched
-            destinationDomain, // The destination domain of the message
-            gasAmount, // 550k gas to use in the recipient's handle function
-            msg.sender // refunds go to msg.sender, who paid the msg.value
-        );
     }
 }
