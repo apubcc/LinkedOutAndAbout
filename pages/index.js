@@ -21,18 +21,6 @@ const signInButtonHandler = async () => {
   const session = await ssx.signIn();
   const orbitExists = await ssx.storage.activateSession();
   console.log('orbitExists', orbitExists);
-  
-  const writeData = await ssx.storage.put('profile_data', 
-  [{
-    id: 10,
-    sector: 'Software Engineering',
-    skills: "frontend",
-    experience: "1 year",
-  }]);
-  
-  const { data } = ssx.storage.list();
-  console.log('data', data);
-  console.log('writeData', writeData);
 
   // store session into session storage
   localStorage.setItem('session', JSON.stringify(session));
