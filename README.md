@@ -88,6 +88,7 @@ At LinkedOutAndAbout, we've harnessed a cutting-edge technology stack to bring o
 
 #### **Deployments ⛓️**
 
+
 - Arbitrum Goerli
 
     - Post: [Post](https://goerli.arbiscan.io/address/0x4eE36Ac14D03445FC0D21C52EF06F7780c9981e3)
@@ -195,5 +196,3 @@ This project operates under the MIT License, giving you the freedom to build upo
 Embrace the future of professional networking with LinkedOutAndAbout. Say hello to bias-free connections and a network that truly reflects your skills and aspirations.
 
 If you have any feedbacks, feel free to drop them on GitHub!
-
-[Get Started](#getting-started)
