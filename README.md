@@ -66,24 +66,6 @@ Follow these steps to start your journey with LinkedOutAndAbout:
 7. **🔍 Attestation Factory**: Build trust by attesting to the authenticity of posts and connections.
 
 
-
-### **How It's Made 🛠️**
-
-At LinkedOutAndAbout, we've harnessed a cutting-edge technology stack to bring our decentralized platform to life:
-
-- **💼 Smart Contracts**: Our platform runs on blockchain-powered smart contracts, ensuring secure and transparent interactions.
-
-- **🖥️ Frontend**: We utilize modern frontend technologies like [Frontend Framework] to provide a seamless user experience.
-
-- **🔌 Backend**: Our backend, powered by [Backend Framework], communicates with the blockchain and database to ensure data integrity.
-
-- **🗄️ Database**: We use [Database Technology] to store and manage user data securely.
-
-- **🔐 Authentication**: User authentication is handled using [Authentication Method] for enhanced security.
-
-- **🌐 Hosting**: Our application is hosted on [Hosting Provider] for reliability and accessibility.
-
-
 ### **The Stack ⚙️**
 
 #### **Deployments ⛓️**
