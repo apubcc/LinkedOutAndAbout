@@ -1202,7 +1202,8 @@ export const contractAddresses = {
     },
   },
   43113: {
-    Post_V2: {
+    //for internal reference, Post here means Post_V2
+    Post: {
       contractAddress: "0x716abc6de63157474acf85EE51d229EEC7E4273F",
       abi: [
         {
