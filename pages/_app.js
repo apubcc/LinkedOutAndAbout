@@ -11,8 +11,8 @@ import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, arbitrumGoerli, avalancheFuji],
   [
-    alchemyProvider({ apiKey: "WV-NUphenL-PYZXxYFeoLOz73EdWjPVU" }),
-    infuraProvider({ projectId: "688aab67fe3b42ed81a381edba65956e" }),
+    alchemyProvider({ apiKey: "F9hACNJ_51OIVhWWxUKgdl5Qu6-EM8ZM" }),
+    infuraProvider({ projectId: "3c331b01f7284899acacb6fcb21cf85b" }),
     publicProvider(),
   ]
 );

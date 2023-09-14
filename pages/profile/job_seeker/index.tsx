@@ -1,5 +1,7 @@
 import { useState } from "react";
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
+
 import { useAccount, useBalance, useContractWrite } from "wagmi";
 import { Button, Layout, Loader } from "../../../components";
 import { EAS, SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
@@ -171,4 +173,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default dynamic (() => Promise.resolve(Home), {ssr: false});

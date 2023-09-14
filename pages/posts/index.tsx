@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+
 import { write } from "fs";
 import {  useContractRead, useContractWrite, useAccount, useNetwork } from "wagmi";
 import { contractAddresses } from "../../constants";
@@ -10,7 +12,7 @@ import { Layout } from "../../components";
 import { get } from "http";
 import { type } from "os";
 
-export default function Posts() {
+function Posts() {
   const { chain } = useNetwork();
 
   var currentChainId = chain?.id;
@@ -21,13 +23,17 @@ export default function Posts() {
   const [lastPostId, setLastPostId] = useState(0);
   const [numberOfPosts, setNumberOfPosts] = useState(13);
   const [showCreatePost, setShowCreatePost] = useState(false);
-  
+
   useContractRead({
     address: postContractAddress,
     abi: postContractABI,
     functionName: "getLastPostId",
     onSuccess: (data) => {
       setLastPostId(Number(data));
+      console.log("Last post id: " + data)
+    },
+    onError: (error) => {
+      console.log(error);
     }
   });
 
@@ -89,3 +95,5 @@ export default function Posts() {
     </Layout>
   );
 }
+
+export default dynamic (() => Promise.resolve(Posts), {ssr: false});

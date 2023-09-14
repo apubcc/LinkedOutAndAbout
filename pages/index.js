@@ -2,6 +2,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { useAccount, useBalance, useEnsName } from "wagmi";
 import { Button, Layout, Loader } from "../components";
+import dynamic from "next/dynamic";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera, OrbitControls } from '@react-three/drei'
 import { SSX } from '@spruceid/ssx';
@@ -137,4 +138,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default dynamic (() => Promise.resolve(Home), {ssr: false});

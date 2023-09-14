@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Image from "next/image";
 //import type { NextPage } from "next";
+import dynamic from "next/dynamic";
+
 import { useAccount, useEnsAvatar, useEnsName } from "wagmi";
 import { Button, Layout, Loader } from "../../../components";
 import  FrostedCard from "../../../components/FrostedCard";
@@ -92,4 +94,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default dynamic (() => Promise.resolve(Home), {ssr: false});
